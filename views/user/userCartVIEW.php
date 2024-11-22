@@ -13,14 +13,18 @@ if (!isset($_SESSION['user_id'])) {
     <title>My Cart - <?php echo $_SESSION['username']; ?></title>
     <link rel="stylesheet" href="../../assets/css/bootstrap.css">
     <link rel="stylesheet" href="../../assets/css/userCartVIEW.css">
-    
+    <link rel="stylesheet" href="../../assets/css/userHEADER.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <div class="wrapper">
-        <!-- Include Header here -->
+        <!-- Include Sidebar here -->
         <?php include 'sidebar.php'; ?>
-
+        
         <div class="main-content">
+            <!-- Include Header here -->
+            <?php include 'userHEADER.php'; ?>
+            
             <div class="container">
                 <h2 class="mb-4">Shopping Cart</h2>
                 <div id="cart-items"></div>
@@ -38,6 +42,7 @@ if (!isset($_SESSION['user_id'])) {
 
     <script src="../../assets/js/jquery.js"></script>
     <script src="../../assets/js/bootstrap.js"></script>
+    <script src="https://kit.fontawesome.com/your-code.js"></script>
     <script src="../../assets/js/userCartVIEW.js"></script>
 </body>
 </html>

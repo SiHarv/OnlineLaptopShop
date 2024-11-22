@@ -104,15 +104,6 @@ if (!isset($_SESSION['user_id'])) {
             min-height: 100vh;
         }
 
-        .header {
-            background: #212529;
-            color: white;
-            padding: 1rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
         .user-info {
             display: flex;
             align-items: center;
