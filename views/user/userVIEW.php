@@ -1,11 +1,189 @@
+<?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../loginPAGE.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Laptop Shop - Welcome <?php echo $_SESSION['username']; ?></title>
+    <link rel="stylesheet" href="../../assets/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .card {
+            transition: transform 0.2s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-img-top {
+            padding: 1rem;
+            background: #f8f9fa;
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-text {
+            flex-grow: 1;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background: #343a40;
+            color: white;
+            padding: 20px;
+            position: fixed;  /* Make sidebar fixed */
+            top: 0;          /* Align to top */
+            left: 0;         /* Align to left */
+            height: 100vh;   /* Full viewport height */
+            overflow-y: auto; /* Allow scrolling if content is too long */
+        }
+
+        .main-content {
+            margin-left: 250px; /* Add margin equal to sidebar width */
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: #212529;
+            color: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,.8);
+            padding: 8px 16px;
+            transition: all 0.3s;
+            border-radius: 4px;
+            margin-bottom: 5px;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: white;
+            background: rgba(255,255,255,.1);
+            text-decoration: none;
+        }
+
+        .nav-link i {
+            margin-right: 10px;
+            width: 20px;
+        }
+
+        .cart-icon {
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #dc3545;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+        }
+    </style>
 </head>
 <body>
-    <h1>User View</h1>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <h3 class="mb-4">My Dashboard</h3>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">
+                        <i class="fas fa-home"></i> Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="userCartVIEW.php">
+                        <i class="fas fa-shopping-cart"></i> My Cart
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-history"></i> Order History
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-user"></i> Profile
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-cog"></i> Settings
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="user-info">
+                        <i class="fas fa-user-circle fa-2x"></i>
+                        <span>Welcome, <?php echo $_SESSION['username']; ?></span>
+                    </div>
+                    <div>
+                        <!-- <a href="#" class="btn btn-outline-light cart-icon me-2">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count">0</span>
+                        </a> -->
+                        <a href="logout.php" class="btn btn-danger">Logout</a>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <div class="content p-4">
+                <h3>Available Laptops</h3>
+                <div id="laptop-container" class="row g-4"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../assets/js/jquery.js"></script>
+    <script src="../../assets/js/bootstrap.js"></script>
+    <script src="https://kit.fontawesome.com/your-code.js"></script>
+    <script src="../../assets/js/displayLAPTOPS.js"></script>
 </body>
 </html>
