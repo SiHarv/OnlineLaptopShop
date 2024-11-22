@@ -17,27 +17,7 @@ if (!isset($_SESSION['user_id'])) {
 </head>
 <body>
     <div class="wrapper">
-        <!-- Sidebar -->
-        <nav class="sidebar">
-            <h3 class="mb-4">My Dashboard</h3>
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link" href="userVIEW.php">
-                        <i class="fas fa-home"></i> Home
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">
-                        <i class="fas fa-shopping-cart"></i> My Cart
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="fas fa-history"></i> Order History
-                    </a>
-                </li>
-            </ul>
-        </nav>
+        <?php include 'sidebar.php'; ?>
 
         <div class="main-content">
             <div class="container">

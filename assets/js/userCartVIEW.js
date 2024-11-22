@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function fetchCartItems() {
-    fetch('../../backend/userFUNCTIONS/fetchCART.php')
+    fetch('../../backend/userFUNCTIONS/Cart/fetchCART.php')
         .then(response => response.json())
         .then(data => {
             const cartContainer = document.getElementById('cart-items');
@@ -59,7 +59,7 @@ function updateQuantity(productId, change) {
     formData.append('product_id', productId);
     formData.append('change', change);
 
-    fetch('../../backend/userFUNCTIONS/updateCART.php', {
+    fetch('../../backend/userFUNCTIONS/Cart/updateCART.php', {
         method: 'POST',
         body: formData
     })
@@ -67,6 +67,8 @@ function updateQuantity(productId, change) {
     .then(data => {
         if (data.status === 'success') {
             fetchCartItems();
+        } else {
+            alert(data.message);
         }
     })
     .catch(error => console.error('Error updating quantity:', error));
@@ -77,7 +79,7 @@ function removeItem(productId) {
         const formData = new FormData();
         formData.append('product_id', productId);
 
-        fetch('../../backend/userFUNCTIONS/removeFromCART.php', {
+        fetch('../../backend/userFUNCTIONS/Cart/removeFromCART.php', {
             method: 'POST',
             body: formData
         })
@@ -85,6 +87,8 @@ function removeItem(productId) {
         .then(data => {
             if (data.status === 'success') {
                 fetchCartItems();
+            } else {
+                alert(data.message);
             }
         })
         .catch(error => console.error('Error removing item:', error));

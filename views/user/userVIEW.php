@@ -156,38 +156,9 @@ if (!isset($_SESSION['user_id'])) {
 </head>
 <body>
     <div class="wrapper">
-        <!-- Sidebar -->
-        <nav class="sidebar">
-            <h3 class="mb-4">My Dashboard</h3>
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">
-                        <i class="fas fa-home"></i> Home
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="userCartVIEW.php">
-                        <i class="fas fa-shopping-cart"></i> My Cart
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="fas fa-history"></i> Order History
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="fas fa-user"></i> Profile
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="fas fa-cog"></i> Settings
-                    </a>
-                </li>
-            </ul>
-        </nav>
-
+        <!-- Include Sidebar here -->
+        <?php include 'sidebar.php'; ?>
+        
         <div class="main-content">
             <!-- Header -->
             <header class="header">
@@ -203,7 +174,7 @@ if (!isset($_SESSION['user_id'])) {
                         </div>
                     </div>
                     <div>
-                        <a href="logout.php" class="btn btn-danger">Logout</a>
+                        <a href="#" class="btn btn-danger">Logout</a>
                     </div>
                 </div>
             </header>
@@ -220,38 +191,6 @@ if (!isset($_SESSION['user_id'])) {
     <script src="../../assets/js/bootstrap.js"></script>
     <script src="https://kit.fontawesome.com/your-code.js"></script>
     <script src="../../assets/js/displayLAPTOPS.js"></script>
-    <!-- Add this JavaScript before closing body tag -->
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const sidebar = document.querySelector('.sidebar');
-        const sidebarToggle = document.getElementById('sidebar-toggle');
-        const mainContent = document.querySelector('.main-content');
-        
-        // Create backdrop element
-        const backdrop = document.createElement('div');
-        backdrop.className = 'sidebar-backdrop';
-        document.body.appendChild(backdrop);
-
-        // Toggle sidebar
-        sidebarToggle.addEventListener('click', function() {
-            sidebar.classList.toggle('show');
-            backdrop.classList.toggle('show');
-        });
-
-        // Close sidebar when clicking backdrop
-        backdrop.addEventListener('click', function() {
-            sidebar.classList.remove('show');
-            backdrop.classList.remove('show');
-        });
-
-        // Handle window resize
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 768) {
-                sidebar.classList.remove('show');
-                backdrop.classList.remove('show');
-            }
-        });
-    });
-    </script>
+    <!-- Add this JavaScript before closing body tag -->  
 </body>
 </html>
