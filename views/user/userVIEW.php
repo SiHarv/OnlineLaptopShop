@@ -61,6 +61,39 @@ if (!isset($_SESSION['user_id'])) {
             left: 0;         /* Align to left */
             height: 100vh;   /* Full viewport height */
             overflow-y: auto; /* Allow scrolling if content is too long */
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.show {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0 !important;
+            }
+        }
+
+        .sidebar-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar-backdrop.show {
+                display: block;
+            }
         }
 
         .main-content {
@@ -159,15 +192,17 @@ if (!isset($_SESSION['user_id'])) {
             <!-- Header -->
             <header class="header">
                 <div class="d-flex justify-content-between align-items-center">
-                    <div class="user-info">
-                        <i class="fas fa-user-circle fa-2x"></i>
-                        <span>Welcome, <?php echo $_SESSION['username']; ?></span>
+                    <div class="d-flex align-items-center">
+                        <!-- Add toggle button for mobile -->
+                        <button class="btn btn-dark d-md-none me-2" id="sidebar-toggle">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <div class="user-info">
+                            <i class="fas fa-user-circle fa-2x"></i>
+                            <span>Welcome, <?php echo $_SESSION['username']; ?></span>
+                        </div>
                     </div>
                     <div>
-                        <!-- <a href="#" class="btn btn-outline-light cart-icon me-2">
-                            <i class="fas fa-shopping-cart"></i>
-                            <span class="cart-count">0</span>
-                        </a> -->
                         <a href="logout.php" class="btn btn-danger">Logout</a>
                     </div>
                 </div>
@@ -185,5 +220,38 @@ if (!isset($_SESSION['user_id'])) {
     <script src="../../assets/js/bootstrap.js"></script>
     <script src="https://kit.fontawesome.com/your-code.js"></script>
     <script src="../../assets/js/displayLAPTOPS.js"></script>
+    <!-- Add this JavaScript before closing body tag -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const sidebar = document.querySelector('.sidebar');
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const mainContent = document.querySelector('.main-content');
+        
+        // Create backdrop element
+        const backdrop = document.createElement('div');
+        backdrop.className = 'sidebar-backdrop';
+        document.body.appendChild(backdrop);
+
+        // Toggle sidebar
+        sidebarToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('show');
+            backdrop.classList.toggle('show');
+        });
+
+        // Close sidebar when clicking backdrop
+        backdrop.addEventListener('click', function() {
+            sidebar.classList.remove('show');
+            backdrop.classList.remove('show');
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                sidebar.classList.remove('show');
+                backdrop.classList.remove('show');
+            }
+        });
+    });
+    </script>
 </body>
 </html>
