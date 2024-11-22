@@ -17,6 +17,7 @@ if (!isset($_SESSION['user_id'])) {
 </head>
 <body>
     <div class="wrapper">
+        <!-- Include Header here -->
         <?php include 'sidebar.php'; ?>
 
         <div class="main-content">
