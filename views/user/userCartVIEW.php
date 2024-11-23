@@ -31,7 +31,7 @@ if (!isset($_SESSION['user_id'])) {
                 <div class="card mt-4">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
-                            <h4 class="mb-0">Total: $<span id="cart-total">0.00</span></h4>
+                            <h4 class="mb-0">Total: ₱<span id="cart-total">0.00</span></h4>
                             <button class="btn btn-success" id="checkout-btn">Proceed to Checkout</button>
                         </div>
                     </div>

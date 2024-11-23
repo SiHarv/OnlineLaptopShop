@@ -26,7 +26,7 @@ function fetchCartItems() {
                             </div>
                             <div class="col-md-4">
                                 <h5>${item.name}</h5>
-                                <p class="text-muted">$${item.price}</p>
+                                <p class="text-muted">₱${item.price}</p>
                             </div>
                             <div class="col-md-3">
                                 <div class="input-group quantity-control">
@@ -36,7 +36,7 @@ function fetchCartItems() {
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <p class="mb-0">$${itemTotal.toFixed(2)}</p>
+                                <p class="mb-0">₱${itemTotal.toFixed(2)}</p>
                             </div>
                             <div class="col-md-1">
                                 <button class="btn btn-danger btn-sm" onclick="removeItem(${item.product_id})">
