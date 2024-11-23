@@ -1,0 +1,11 @@
+{
+    "name": "human/online-laptop-shop",
+    "autoload": {
+        "psr-4": {
+            "Human\\OnlineLaptopShop\\": "src/"
+        }
+    },
+    "require": {
+        "phpmailer/phpmailer": "^6.9"
+    }
+}

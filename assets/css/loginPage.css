@@ -1,0 +1,93 @@
+/* loginPage.css */
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e0f7fa; /* Light cyan background */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+header, footer {
+    background-color: #00796b; /* Teal background */
+    color: white;
+    text-align: center;
+    padding: 1em 0;
+    width: 100%;
+    position: fixed;
+    left: 0;
+}
+
+header {
+    top: 0;
+}
+
+footer {
+    bottom: 0;
+}
+
+.login-container {
+    background-color: white;
+    padding: 2em;
+    width: 300px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 5em; /* Adjust based on header height */
+    margin-bottom: 5em; /* Adjust based on footer height */
+}
+
+.login-title {
+    margin-bottom: 1em;
+    color: #00796b; /* Teal color */
+}
+
+.form-group {
+    margin-bottom: 1em;
+    text-align: left;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.5em;
+    margin-top: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.login-button {
+    width: 100%;
+    padding: 0.5em;
+    background-color: #00796b; /* Teal background */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.login-button:hover {
+    background-color: #004d40; /* Darker teal */
+}
+
+.forgot-password, .register {
+    margin-top: 1em;
+}
+
+.forgot-password a, .register a {
+    color: #00796b; /* Teal color */
+    text-decoration: none;
+}
+
+.forgot-password a:hover, .register a:hover {
+    text-decoration: underline;
+}
