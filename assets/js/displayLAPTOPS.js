@@ -41,7 +41,7 @@ function addToCart(productId) {
     const formData = new FormData();
     formData.append('product_id', productId);
 
-    fetch('../../backend/userFUNCTIONS/addToCART.php', {
+    fetch('../../backend/userFUNCTIONS/Cart/addToCART.php', {
         method: 'POST',
         body: formData
     })
