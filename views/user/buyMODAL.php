@@ -12,23 +12,32 @@
             </div>
             <div class="modal-body">
                 <div id="laptop-details"></div>
+                <div class="form-group mt-3" id="qtyGroup" style="display: none;">
+                    <label for="qty"><i class=""></i>Qty</label>
+                    <input type="number" id="qty" name="qty" class="form-control" min="1" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))">
+                </div>
                 <div class="form-group mt-3">
                     <label for="paymentOption">Payment Option</label>
                     <select class="form-control" id="paymentOption">
+                        <option value="Meet Up">Meet Up</option>
                         <option value="Cash on Delivery">Cash on Delivery</option>
                         <option value="Cash on Pickup">Cash on Pickup</option>
-                        <option value="Meet Up">Meet Up</option>
                     </select>
                 </div>
                 <div class="form-group mt-3" id="carrier-group" style="display: none;">
                     <label for="carrier"><i class=""></i>Carrier</label>
                     <input type="text" id="carrier" name="carrier" class="form-control">
                 </div>
+                <div class="form-group mt-3">
+                    <label for="totalAmount">Total Amount: <span id="totalAmount">₱0.00</span></label>
+                    <input type="hidden" id="totalAmountInput" name="totalAmount" value="0.00">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="proceedPayment">Proceed to Payment</button>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="proceedPayment">Proceed to Payment</button>
-            </div>
+            
         </div>
     </div>
 </div>
@@ -36,17 +45,4 @@
 <script src="../../assets/js/bootstrap.bundle.min.js"></script>
 <script src="https://kit.fontawesome.com/your-code.js"></script>
 <script src="../../assets/js/sidebar.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const paymentOption = document.getElementById('paymentOption');
-        const carrierGroup = document.getElementById('carrier-group');
-
-        paymentOption.addEventListener('change', function() {
-            if (this.value === 'Cash on Delivery' || this.value === 'Cash on Pickup') {
-                carrierGroup.style.display = 'block';
-            } else {
-                carrierGroup.style.display = 'none';
-            }
-        });
-    });
-</script>
+<script src="../../assets/js/buyModal.js"></script>

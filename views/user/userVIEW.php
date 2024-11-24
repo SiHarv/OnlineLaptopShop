@@ -17,7 +17,7 @@ if (!isset($_SESSION['user_id'])) {
 
 </head>
 <body>
-<?php include 'paymentMODAL.php'; ?>
+<?php include 'buyMODAL.php'; ?>
     <div class="wrapper">
         <!-- Sidebar -->
         <?php include 'sidebar.php'; ?>
