@@ -1,15 +1,4 @@
-<?php 
-session_start();
-// If already logged in, redirect to appropriate page
-if (isset($_SESSION['user_id'])) {
-    if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
-        header("Location: admin/adminVIEW.php");
-    } else {
-        header("Location: user/userVIEW.php");
-    }
-    exit();
-}
-?>
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

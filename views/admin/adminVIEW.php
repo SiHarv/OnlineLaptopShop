@@ -1,8 +1,3 @@
-<?php
-session_start();
-require_once '../../backend/sessionCHECK.php';
-checkAdminSession();
-?>
 <!DOCTYPE html>
 <html lang="en">
 
