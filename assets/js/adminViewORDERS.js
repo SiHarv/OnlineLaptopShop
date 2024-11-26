@@ -106,5 +106,37 @@ $(document).ready(function() {
         messageModal.show();
     });
 
-    
+    // Handle send message button click
+    $('#sendMessageBtn').click(function() {
+        const formData = {
+            recipient_email: $('#recipient_email').val(),
+            message_content: $('#message_content').val(),
+            order_id: $('#order_id').val()
+        };
+
+        console.log('Sending message with data:', formData); // Debug log
+
+        $.ajax({
+            url: '../../backend/adminFUNCTIONS/sendMessage.php',
+            type: 'POST',
+            data: formData,
+            dataType: 'json',
+            success: function(response) {
+                console.log('Response:', response); // Debug log
+                if (response.status === 'success') {
+                    $('#messageModal').modal('hide');
+                    $('#messageForm')[0].reset();
+                } else {
+                    alert('Failed to send message: ' + response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error details:', {
+                    status: status,
+                    error: error,
+                    response: xhr.responseText
+                });
+            }
+        });
+    });
 });
