@@ -13,7 +13,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="adminORDERS.php">
+            <a class="nav-link" href="adminViewORDERS.php">
                 <i class="fas fa-box"></i> Orders
             </a>
         </li>
