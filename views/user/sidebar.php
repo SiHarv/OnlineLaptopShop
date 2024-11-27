@@ -23,11 +23,6 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">
-                <i class="fas fa-user"></i> Profile
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">
                 <i class="fas fa-cog"></i> Settings
             </a>
         </li>

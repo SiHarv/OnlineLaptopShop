@@ -14,11 +14,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="card-body">
                             <h5 class="card-title">${laptop.name}</h5>
                             <p class="card-text">${laptop.description}</p>
-                            <p class="card-text"><strong>Price: $${laptop.price}</strong></p>
+                            <p class="card-text"><strong>Price: ₱${laptop.price}</strong></p>
                             <p class="card-text text-muted">Stock: ${laptop.stock}</p>
                             <div class="d-flex gap-2">
                                 <button class="btn btn-primary btn-sm add-to-cart" data-product-id="${laptop.product_id}">Add to Cart</button>
-                                <button class="btn btn-success btn-sm">Buy</button>
+                                <button class="btn btn-success btn-sm buy-now" data-product-id="${laptop.product_id}" data-product-name="${laptop.name}" data-product-price="${laptop.price}">Buy</button>
                             </div>
                         </div>
                     </div>
@@ -33,6 +33,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     addToCart(productId);
                 });
             });
+
+            // Add click handlers for Buy buttons
+            document.querySelectorAll('.buy-now').forEach(button => {
+                button.addEventListener('click', function() {
+                    const productId = this.getAttribute('data-product-id');
+                    const productName = this.getAttribute('data-product-name');
+                    const productPrice = this.getAttribute('data-product-price');
+                    showPaymentModal(productId, productName, productPrice);
+                });
+            });
         })
         .catch(error => console.error('Error fetching laptops:', error));
 });
@@ -41,7 +51,7 @@ function addToCart(productId) {
     const formData = new FormData();
     formData.append('product_id', productId);
 
-    fetch('../../backend/userFUNCTIONS/addToCART.php', {
+    fetch('../../backend/userFUNCTIONS/Cart/addToCART.php', {
         method: 'POST',
         body: formData
     })
@@ -58,3 +68,4 @@ function addToCart(productId) {
         alert('Error adding item to cart');
     });
 }
+
