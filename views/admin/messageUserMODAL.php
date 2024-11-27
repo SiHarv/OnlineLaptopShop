@@ -1,5 +1,5 @@
 <!-- messageUserModal.php -->
-<div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+<div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true" data-backdrop="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -12,6 +12,12 @@
                 <form id="messageForm">
                     <input type="hidden" id="recipient_email" name="recipient_email">
                     <input type="hidden" id="order_id" name="order_id">
+                    <input type="hidden" id="product" name="product">
+                    <input type="hidden" id="quantity" name="quantity">
+                    <input type="hidden" id="unit_price" name="unit_price">
+                    <input type="hidden" id="total_price" name="total_price">
+                    <input type="hidden" id="payment_method" name="payment_method">
+                    <input type="hidden" id="carrier" name="carrier">
                     <div class="mb-3">
                         <label class="form-label">Sending to: <span id="display_email" class="text-primary"></span></label>
                     </div>
@@ -22,7 +28,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" id="sendMessageBtn">Send Message</button>
             </div>
         </div>
