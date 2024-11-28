@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <p>Payment Method: $payment_method</p>
                 <p>Carrier: $carrier</p>
                 <hr>
-                <div style='text-align: left; margin: 20px; padding: 20px; border: 1px solid #ddd;'>
+                <div style='text-align: start; margin: 20px; padding: 20px; border: 1px solid #ddd;'>
                     $message_content
                 </div>
                 <p>Thank you for shopping with Online Laptop Shop!</p>

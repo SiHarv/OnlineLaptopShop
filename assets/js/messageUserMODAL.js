@@ -1,14 +1,22 @@
 function openMessageModal(email, orderId, product, quantity, unitPrice, totalPrice, paymentMethod, carrier) {
-    $('#recipient_email').val(email);
-    $('#order_id').val(orderId);
+    
     $('#display_email').text(email);
+    $('#display_product').text(product);
+    $('#display_quantity').text(quantity);
+    $('#display_unitPrice').text(unitPrice);
+    $('#display_totalPrice').text(totalPrice);
+    $('#display_paymentMethod').text(paymentMethod);
+    $('#display_carrier').text(carrier);
+
     
     // Store order details in hidden inputs
+    $('#recipient_email').val(email);
+    $('#order_id').val(orderId);
     $('#product').val(product);
     $('#quantity').val(quantity);
-    $('#unit_price').val(unitPrice);
-    $('#total_price').val(totalPrice);
-    $('#payment_method').val(paymentMethod);
+    $('#unitPrice').val(unitPrice);
+    $('#totalPrice').val(totalPrice);
+    $('#paymentMethod').val(paymentMethod);
     $('#carrier').val(carrier);
     
     $('#messageModal').modal('show');
@@ -22,9 +30,9 @@ $(document).ready(function() {
             message_content: $('#message_content').val(),
             product: $('#product').val(),
             quantity: $('#quantity').val(),
-            unit_price: $('#unit_price').val(),
-            total_price: $('#total_price').val(),
-            payment_method: $('#payment_method').val(),
+            unit_price: $('#unitPrice').val(),
+            total_price: $('#totalPrice').val(),
+            payment_method: $('#paymentMethod').val(),
             carrier: $('#carrier').val()
         };
 

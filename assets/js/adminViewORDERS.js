@@ -1,4 +1,3 @@
-// assets/js/adminViewORDERS.js
 $(document).ready(function() {
     fetchOrders();
 
@@ -49,14 +48,36 @@ $(document).ready(function() {
                     updateOrderStatus(orderId, newStatus);
                 });
 
+
                 // Add click event listener to message buttons
                 $('.message-btn').on('click', function() {
                     const email = $(this).data('email');
                     const orderId = $(this).data('orderid');
+                    const product = $(this).closest('tr').find('td:nth-child(3)').text();
+                    const quantity = $(this).closest('tr').find('td:nth-child(4)').text();
+                    const unitPrice = $(this).closest('tr').find('td:nth-child(5)').text();
+                    const totalPrice = $(this).closest('tr').find('td:nth-child(6)').text();
+                    const paymentMethod = $(this).closest('tr').find('td:nth-child(7)').text();
+                    const carrier = $(this).closest('tr').find('td:nth-child(9)').text();
+                    
                     
                     $('#recipient_email').val(email);
                     $('#order_id').val(orderId);
+                    $('#product').val(product);
+                    $('#quantity').val(quantity);
+                    $('#unitPrice').val(unitPrice);
+                    $('#totalPrice').val(totalPrice);
+                    $('#paymentMethod').val(paymentMethod);
+                    $('#carrier').val(carrier);
+
                     $('#display_email').text(email);
+                    $('#display_product').text(product);
+                    $('#display_quantity').text(quantity);
+                    $('#display_unitPrice').text(unitPrice);
+                    $('#display_totalPrice').text(totalPrice);
+                    $('#display_paymentMethod').text(paymentMethod);
+                    $('#display_carrier').text(carrier);
+
                 });
             },
             error: function(xhr, status, error) {

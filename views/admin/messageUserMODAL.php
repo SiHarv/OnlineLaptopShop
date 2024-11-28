@@ -14,12 +14,27 @@
                     <input type="hidden" id="order_id" name="order_id">
                     <input type="hidden" id="product" name="product">
                     <input type="hidden" id="quantity" name="quantity">
-                    <input type="hidden" id="unit_price" name="unit_price">
-                    <input type="hidden" id="total_price" name="total_price">
-                    <input type="hidden" id="payment_method" name="payment_method">
+                    <input type="hidden" id="unitPrice" name="unitPrice">
+                    <input type="hidden" id="totalPrice" name="totalPrice">
+                    <input type="hidden" id="paymentMethod" name="paymentMethod">
                     <input type="hidden" id="carrier" name="carrier">
                     <div class="mb-3">
                         <label class="form-label">Sending to: <span id="display_email" class="text-primary"></span></label>
+                    </div>
+                    <div class="mb-3 border p-3 bg-light">
+                        <h6 class="border-bottom pb-2">Order Details:</h6>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Product:</strong><span id="display_product"></span></p>
+                                <p><strong>Quantity:</strong><span id="display_quantity"></span></p>
+                                <p><strong>Unit Price:</strong><span id="display_unitPrice"></span></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Total Price:</strong><span id="display_totalPrice"></span></p>
+                                <p><strong>Payment Method:</strong> <span id="display_paymentMethod"></span></p>
+                                <p><strong>Carrier:</strong> <span id="display_carrier"></span></p>
+                            </div>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="message_content" class="form-label">Message</label>
