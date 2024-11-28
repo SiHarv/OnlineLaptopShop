@@ -26,7 +26,14 @@
                 </div>
                 <div class="form-group mt-3" id="carrier-group" style="display: none;">
                     <label for="carrier"><i class=""></i>Carrier</label>
-                    <input type="text" id="carrier" name="carrier" class="form-control">
+                    <select class="form-control" id="carrier">
+                        <option value="LBC">LBC</option>
+                        <option value="Lalamove">Lalamove</option>
+                        <option value="J&T">J&T</option>
+                        <option value="Ninja Express">Ninja Express</option>
+                        <option value="Food Panda">Food Panda</option>
+                        <option value="Private Driver">Private Driver</option>
+                    </select>
                 </div>
                 <div class="form-group mt-3">
                     <label for="totalAmount">Total Amount: <span id="totalAmount">₱0.00</span></label>

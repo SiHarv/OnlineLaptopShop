@@ -42,7 +42,6 @@ $(document).ready(function() {
             data: formData,
             success: function(response) {
                 // Properly cleanup modal
-                $('#messageModal').modal('hide');
                 $('.modal-backdrop').remove();
                 $('body').removeClass('modal-open');
                 $('body').css('padding-right', '');
