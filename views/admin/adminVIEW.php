@@ -111,7 +111,7 @@
                         <!-- Modal Header -->
                         <div class="modal-header">
                             <h4 class="modal-title">Update Image</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;"></button>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
 
                         <!-- Modal body -->
@@ -134,7 +134,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title">Delete Confirmation</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;"></button>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <div class="modal-body">
                             <p>Are you sure you want to delete this item?</p>

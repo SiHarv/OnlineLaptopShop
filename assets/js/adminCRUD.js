@@ -52,6 +52,10 @@ $(document).ready(function () {
                     $("#save").trigger("reset");
                     loadImage();
                     count();
+                    // Remove any lingering backdrops
+                    $('.modal-backdrop').remove();
+                    $('body').removeClass('modal-open');
+                    $('body').css('padding-right', '');
                 } else if (data == 2) {
                     alert("File is too large");
                 } else if (data == 3) {
@@ -100,6 +104,10 @@ $(document).ready(function () {
                     $("#update").trigger("reset");
                     loadImage();
                     count();
+                    // Remove any lingering backdrops
+                    $('.modal-backdrop').remove();
+                    $('body').removeClass('modal-open');
+                    $('body').css('padding-right', '');
                 } else if (data == 2) {
                     alert("File is too large");
                 } else if (data == 3) {
@@ -135,6 +143,10 @@ $(document).ready(function () {
                     alert("Deleted successfully");
                     loadImage();
                     count();
+                    // Remove any lingering backdrops
+                    $('.modal-backdrop').remove();
+                    $('body').removeClass('modal-open');
+                    $('body').css('padding-right', '');
                 } else {
                     alert("Something went wrong");
                 }

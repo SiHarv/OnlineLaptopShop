@@ -22,5 +22,10 @@
                 <i class="fas fa-cog"></i>Settings
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutConfirmModal">
+            <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </li>
     </ul>
 </nav>

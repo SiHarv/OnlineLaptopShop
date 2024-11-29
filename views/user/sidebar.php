@@ -17,7 +17,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="userOrderHISTORY.php">
                 <i class="fas fa-history"></i> Order History
             </a>
         </li>

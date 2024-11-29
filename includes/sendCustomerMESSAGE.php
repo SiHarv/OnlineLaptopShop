@@ -22,37 +22,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'Harveycasane@gmail.com'; // Your Gmail
-        $mail->Password = 'wrmq lhrf uxnu fgmv'; // Your app password
+        $mail->Username = 'Harveycasane2@gmail.com'; // Your Gmail
+        $mail->Password = 'ueao ifiu uypm uuhn'; // Your app password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
 
         // Recipients
-        $mail->setFrom('Harveycasane@gmail.com', 'Online Laptop Shop');
-        $mail->addAddress($recipient_email);
+        $mail->setFrom('Harveycasane2@gmail.com', 'GenZ Laptop Shop');
+        $mail->addAddress($recipient_email); // Add a recipient
 
         // Content
         $mail->isHTML(true);
-        $mail->Subject = "Order #$order_id - Message from Online Laptop Shop";
+        $mail->Subject = "Order #$order_id - Message from GenZ Laptop Shop";
         $mail->Body = "
             <div style='text-align: center;'>
-                <h2>Message Regarding Order #$order_id</h2>
                 <hr>
-                <p>Product: $product</p>
-                <p>Quantity: $quantity</p>
-                <p>Unit Price: $unit_price</p>
-                <p>Total Price: $total_price</p>
-                <p>Payment Method: $payment_method</p>
-                <p>Carrier: $carrier</p>
+                    <p>Dear Customer,</p>
+
+                    <p>Thank you for your recent purchase from Online Laptop Shop. Below are the details of your order:</p>
+
+                    <p><strong>Product:</strong> $product</p>
+
+                    <p><strong>Quantity:</strong> $quantity</p>
+
+                    <p><strong>Unit Price:</strong> $unit_price</p>
+
+                    <p><strong>Total Price:</strong> $total_price</p>
+
+                    <p><strong>Payment Method:</strong> $payment_method</p>
+
+                    <p><strong>Carrier:</strong> $carrier</p>
                 <hr>
-                <div style='text-align: start; margin: 20px; padding: 20px; border: 1px solid #ddd;'>
-                    $message_content
+            <div style='text-align: start; margin: 20px; padding: 20px; border: 1px solid #ddd;'>
+                <p>Online Laptop Shop Team</p>
+                <p>Sincerely,</p>
+                <p>$message_content</p>
                 </div>
+                <p></p>
                 <p>Thank you for shopping with Online Laptop Shop!</p>
             </div>";
-
         $mail->send();
-        
+
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";   
     }

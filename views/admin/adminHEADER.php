@@ -9,8 +9,6 @@
         <button class="btn btn-dark d-md-none me-2" id="sidebar-toggle">
             <i class="fas fa-bars"></i>
         </button>
-        <!-- Add logout button -->
-        <button class="btn btn-danger ms-2" data-toggle="modal" data-target="#logoutConfirmModal">Logout</button>
     </div>
 </header>
 
