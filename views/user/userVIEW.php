@@ -59,6 +59,7 @@ if (!isset($_SESSION['user_id'])) {
     <script src="../../assets/js/bootstrap.js"></script>
     <script src="https://kit.fontawesome.com/your-code.js"></script>
     <script src="../../assets/js/displayLAPTOPS.js"></script>
-    <!-- Add this JavaScript before closing body tag -->  
+    <script src="../../assets/js/sidebar.js"></script>
+
 </body>
 </html>
