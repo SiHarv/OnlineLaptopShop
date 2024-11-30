@@ -54,8 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <p><strong>Carrier:</strong> $carrier</p>
                 <hr>
             <div style='text-align: start; margin: 20px; padding: 20px; border: 1px solid #ddd;'>
-                <p>Online Laptop Shop Team</p>
                 <p>Sincerely,</p>
+                <p>Online Laptop Shop Team</p>
                 <p>$message_content</p>
                 </div>
                 <p></p>

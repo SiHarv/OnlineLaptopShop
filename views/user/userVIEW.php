@@ -27,8 +27,30 @@ if (!isset($_SESSION['user_id'])) {
             <?php include 'userHEADER.php'; ?>
             <!-- Main Content -->
             <div class="content p-4">
-                <h3>Available Laptops</h3>
-                <div id="laptop-container" class="row g-4"></div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <h4>Available Laptops</h4>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex " style="gap: 10px">
+                                    <input type="text" id="searchInput" class="form-control" placeholder="Search laptops...">
+                                    <select id="priceFilter" class="form-select">
+                                        <option value="">Filter by Price</option>
+                                        <option value="0-20000">₱0 - ₱20,000</option>
+                                        <option value="20001-40000">₱20,001 - ₱40,000</option>
+                                        <option value="40001-60000">₱40,001 - ₱60,000</option>
+                                        <option value="60001+">Above ₱60,000</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="laptop-container" class="row g-4"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
