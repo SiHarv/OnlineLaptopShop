@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval'; geolocation 'self' https://api.mapbox.com">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval'; worker-src 'self' blob:; script-src 'self' https://api.mapbox.com 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://api.mapbox.com 'unsafe-inline'; img-src 'self' data: https://api.mapbox.com; connect-src 'self' https://api.mapbox.com">
     <title>Register</title>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css' rel='stylesheet' />
     <style>
