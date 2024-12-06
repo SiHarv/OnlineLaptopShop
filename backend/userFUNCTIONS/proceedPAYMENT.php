@@ -10,11 +10,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $conn->begin_transaction();
 
         $user_id = $_SESSION['user_id'];
-        $product_id = $_POST['product_id'];
-        $qty = $_POST['qty'];
-        $totalAmount = $_POST['totalAmount'];
-        $carrier = isset($_POST['carrier']) ? $_POST['carrier'] : null;
-        $payment_option = $_POST['payment_option'];
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        // Debugging: Log the received data
+        error_log(print_r($data, true));
+
+        if (!$data) {
+            throw new Exception('Invalid JSON data');
+        }
+
+        $product_id = $data['product_id'];
+        $qty = $data['qty'];
+        $totalAmount = $data['totalAmount'];
+        $carrier = isset($data['carrier']) ? $data['carrier'] : null;
+        $payment_option = $data['payment_option'];
 
         // First insert into Orders table
         $sql = "INSERT INTO Orders (user_id, product_id, qty, total_amount, status, carrier, payment_option) 

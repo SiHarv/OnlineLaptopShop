@@ -33,9 +33,21 @@
     </div>
 
     <script>
-        // Get the total amount from the URL parameters
+        // Get the total amount and other details from the URL parameters
         const urlParams = new URLSearchParams(window.location.search);
         const totalAmount = urlParams.get('totalAmount');
+        const productId = urlParams.get('productId');
+        const qty = urlParams.get('qty');
+        const paymentOption = urlParams.get('paymentOption');
+        const carrier = urlParams.get('carrier');
+
+        console.log('Redirected to PayPal payment page with:', {
+            totalAmount: totalAmount,
+            productId: productId,
+            qty: qty,
+            paymentOption: paymentOption,
+            carrier: carrier
+        });
 
         paypal.Buttons({
             createOrder: function(data, actions) {
@@ -49,8 +61,44 @@
             },
             onApprove: function(data, actions) {
                 return actions.order.capture().then(function(details) {
-                    alert('Transaction completed by ' + details.payer.name.given_name);
-                    // Optionally, you can redirect the user to a success page or update your database
+                    /* alert('Transaction completed by ' + details.payer.name.given_name); */
+
+                    console.log('Payment approved with details:', details);
+
+                    // Send the payment details and order details to proceedPAYMENT.php
+                    fetch('../../backend/userFUNCTIONS/proceedPAYMENT.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            product_id: productId,
+                            qty: qty,
+                            totalAmount: totalAmount,
+                            carrier: carrier,
+                            payment_option: paymentOption,
+                            order_id: details.id,
+                            status: details.status
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Response from proceedPAYMENT.php:', data);
+                        if (data.status === 'success') {
+                            window.alert('Transaction completed by ' + details.payer.name.given_name);
+                            // Redirect after alert is closed
+                            window.onbeforeunload = null;
+                            setTimeout(() => {
+                                window.location.href = 'userVIEW.php';
+                            }, 1000);
+                        } else {
+                            alert('Failed to place order: ' + data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('An error occurred while placing the order. Please try again.');
+                    });
                 });
             },
             onError: function(err) {

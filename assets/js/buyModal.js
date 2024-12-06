@@ -32,8 +32,6 @@ document.addEventListener('DOMContentLoaded', function() {
     qtyInput.dispatchEvent(new Event('input'));
 });
 
-
-
 function showPaymentModal(productId, productName, productPrice) {
     console.log('Modal opened with:', { productId, productName, productPrice });
     
@@ -74,38 +72,6 @@ function proceedToPayment(productId, productName, productPrice) {
 
     console.log('Calculated total amount:', totalAmount);
 
-    const formData = new FormData();
-    formData.append('product_id', productId);
-    formData.append('qty', qty);
-    formData.append('totalAmount', totalAmount.toFixed(2));
-    formData.append('payment_option', paymentOption);
-    formData.append('carrier', carrier);
-
-    console.log('FormData entries:');
-    for (let pair of formData.entries()) {
-        console.log(pair[0] + ': ' + pair[1]);
-    }
-
-    fetch('../../backend/userFUNCTIONS/proceedPAYMENT.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.text())
-    .then(text => {
-        console.log('Raw server response:', text);
-        return JSON.parse(text);
-    })
-    .then(data => {
-        console.log('Parsed server response:', data);
-        if (data.status === 'success') {
-            alert('Order placed successfully!');
-            window.location.reload();
-        } else {
-            
-        }
-    })
-    .catch(error => {
-        console.error('Error details:', error);
-        alert('Error placing order: ' + error.message);
-    });
+    // Redirect to PayPal payment page with total amount and other details
+    window.location.href = `../../views/user/paypalPAYMENT.php?totalAmount=${totalAmount.toFixed(2)}&productId=${productId}&qty=${qty}&paymentOption=${paymentOption}&carrier=${carrier}`;
 }
