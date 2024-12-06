@@ -21,11 +21,6 @@
                 <i class="fas fa-history"></i> Order History
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="fas fa-cog"></i> Settings
-            </a>
-        </li>
         <li class="nav-item"></li>
             <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutConfirmModal">
             <i class="fas fa-sign-out-alt"></i> Logout

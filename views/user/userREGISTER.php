@@ -197,7 +197,7 @@
     
     <div class="registration-container">
         <h3>Create Account</h3>
-        <form method="POST" class="registration-form">
+        <form method="POST" action="../../backend/accountREGISTER.php" class="registration-form">
             <div class="form-group">
                 <label for="username"><i class="fas fa-user"></i> Username</label>
                 <input type="text" id="username" name="username" required>
@@ -218,7 +218,7 @@
 
             <div class="form-group">
                 <label for="phone_number"><i class="fas fa-phone"></i> Phone Number</label>
-                <input type="tel" id="phone_number" name="phone_number" pattern="[0-9]{10}" required>
+                <input type="tel" id="phone_number" name="phone_number" required>
             </div>
             <div class="form-group">
                 <label for="location"><i class="fas fa-map-marker-alt"></i> Location</label>
@@ -228,14 +228,14 @@
 
             <div class="form-group">
                 <label for="password"><i class="fas fa-lock"></i> Password</label>
-                <input type="password" id="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                <input type="password" id="password" name="password" required>
             </div>
             <div class="form-group">
                 <label for="confirmpassword"><i class="fas fa-lock"></i> Confirm Password</label>
                 <input type="password" id="confirmpassword" name="confirmpassword" required>
             </div>
 
-            <button type="submit">Register</button>
+            <button type="submit" name="register">Register</button>
         </form>
     </div>
 
