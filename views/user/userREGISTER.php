@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval'; worker-src 'self' blob:; script-src 'self' https://api.mapbox.com 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://api.mapbox.com 'unsafe-inline'; img-src 'self' data: https://api.mapbox.com; connect-src 'self' https://api.mapbox.com">
+    <meta http-equiv="Content-Security-Policy" content="...; font-src 'self' https://cdnjs.cloudflare.com https://kit.fontawesome.com;">
     <title>Register</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css' rel='stylesheet' />
     <style>
         * {
@@ -187,6 +188,38 @@
         .current-location-btn:hover {
             background-color: #218838;
         }
+
+        .btn-primary i {
+            margin-right: 0;
+        }
+
+        .location-group {
+            position: relative;
+            width: 100%;
+        }
+
+        .location-group input {
+            width: 100%;
+            padding-right: 35px; /* Space for icon */
+            cursor: pointer;
+            background-color: rgba(255, 255, 255, 0.07);
+            color: #ffffff;
+            border: none;
+            height: 40px;
+            padding: 0 10px;
+            border-radius: 3px;
+        }
+
+        .location-group::after {
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #007bff;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
@@ -220,10 +253,12 @@
                 <label for="phone_number"><i class="fas fa-phone"></i> Phone Number</label>
                 <input type="tel" id="phone_number" name="phone_number" required>
             </div>
+            <!-- Simplified location input HTML -->
             <div class="form-group">
                 <label for="location"><i class="fas fa-map-marker-alt"></i> Location</label>
-                <input type="text" id="location" name="location" required readonly>
-                <button type="button" onclick="openModal()">Select Location</button>
+                <div class="location-group">
+                    <input type="text" id="location" name="location" required readonly onclick="openModal()">
+                </div>
             </div>
 
             <div class="form-group">
@@ -243,6 +278,7 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
             <h2>Select Location</h2>
+            <p>Please click your exact Location in the Map.</p>
             <div id="map"></div>
         </div>
     </div>
