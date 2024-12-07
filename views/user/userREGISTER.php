@@ -308,45 +308,34 @@
         document.getElementById('locationModal').style.display = 'none';
     }
 
+    // Update the map initialization code
     function initMap() {
         map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/streets-v11',
-            center: [0, 0],
+            /* center: [0, 0], */
             zoom: 2
         });
 
-        // Improved GeolocateControl with error handling
+        // Create geolocate control but don't trigger automatically
         const geolocate = new mapboxgl.GeolocateControl({
             positionOptions: {
                 enableHighAccuracy: true,
                 timeout: 6000
             },
-            trackUserLocation: true,
+            trackUserLocation: false,
             showUserLocation: true,
             showAccuracyCircle: true
         });
 
         map.addControl(geolocate);
 
-        // Handle geolocation errors
-        geolocate.on('error', (e) => {
-            console.error('Geolocation error:', e.error);
-            if (e.error.code === 1) { // PERMISSION_DENIED
-                alert('Please enable location permissions in your browser settings to use this feature.');
-            } else if (e.error.code === 2) { // POSITION_UNAVAILABLE
-                alert('Location information is unavailable. Please check your device settings.');
-            } else if (e.error.code === 3) { // TIMEOUT
-                alert('The request to get user location timed out.');
-            }
-        });
-
-        // Trigger geolocation on map load
-        map.on('load', () => {
+        // Only trigger geolocation when modal opens
+        document.getElementById('locationModal').addEventListener('shown.bs.modal', function() {
             if (window.location.protocol !== 'https:') {
                 console.warn('Geolocation requires HTTPS to work on mobile devices');
             }
-            geolocate.trigger();
+            // User must click the geolocate button to get location
         });
 
         // Rest of your existing map click handling code...
@@ -404,21 +393,6 @@
             });
         }
     }
-
-    // Request location access on page load
-    window.onload = function() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                var lat = position.coords.latitude;
-                var lng = position.coords.longitude;
-                document.getElementById('location').value = lat + ', ' + lng;
-            }, function(error) {
-                console.error(error);
-            }, {
-                enableHighAccuracy: true
-            });
-        }
-    };
     </script>
 </body>
 </html>
