@@ -40,6 +40,50 @@ if (!isset($_SESSION['user_id'])) {
         </div>
     </div>
 
+    <!-- Payment Modal -->
+    <div class="modal fade" id="cartPaymentModal" tabindex="-1" aria-labelledby="cartPaymentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cartPaymentModalLabel">Checkout Payment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="cart-details"></div>
+                    <div class="form-group mt-3">
+                        <label for="paymentOption">Payment Option</label>
+                        <select class="form-control" id="paymentOption">
+                            <option value="Meet Up">Meet Up</option>
+                            <option value="Cash on Delivery">Cash on Delivery</option>
+                            <option value="Cash on Pickup">Cash on Pickup</option>
+                        </select>
+                    </div>
+                    <div class="form-group mt-3" id="carrier-group" style="display: none;">
+                        <label for="carrier">Carrier</label>
+                        <select class="form-control" id="carrier">
+                            <option value="LBC">LBC</option>
+                            <option value="Lalamove">Lalamove</option>
+                            <option value="J&T">J&T</option>
+                            <option value="Ninja Express">Ninja Express</option>
+                            <option value="Food Panda">Food Panda</option>
+                            <option value="Private Driver">Private Driver</option>
+                        </select>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="totalAmount">Total Amount: <span id="modalTotalAmount">₱1000</span></label>
+                        <input type="hidden" id="totalAmountInput" name="totalAmount" value="1000">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="proceedCartPayment">Proceed to Payment</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="../../assets/js/jquery.js"></script>
     <script src="../../assets/js/bootstrap.js"></script>
     <script src="https://kit.fontawesome.com/your-code.js"></script>

@@ -135,3 +135,41 @@ document.addEventListener('change', function(event) {
         storeCheckboxStates();
     }
 });
+
+document.getElementById('checkout-btn').addEventListener('click', function() {
+    const modal = new bootstrap.Modal(document.getElementById('cartPaymentModal'));
+    modal.show();
+});
+
+// Handle payment option change
+document.getElementById('paymentOption').addEventListener('change', function() {
+    const carrierGroup = document.getElementById('carrier-group');
+    if (this.value === 'Cash on Delivery' || this.value === 'Cash on Pickup') {
+        carrierGroup.style.display = 'block';
+    } else {
+        carrierGroup.style.display = 'none';
+    }
+});
+
+// Update the proceedCartPayment click handler in userCartVIEW.js
+document.getElementById('proceedCartPayment').addEventListener('click', function() {
+    const checkedItems = document.querySelectorAll('.item-checkbox:checked');
+    
+    if (checkedItems.length === 0) {
+        alert('Please select items to checkout');
+        return;
+    }
+
+    const paymentOption = document.getElementById('paymentOption').value;
+    const carrier = document.getElementById('carrier').value;
+    const totalAmount = parseFloat(document.getElementById('cart-total').textContent);
+
+    // Get first selected item (maintaining single product format)
+    const firstCheckedItem = checkedItems[0];
+    const productId = firstCheckedItem.getAttribute('data-item-id');
+    const quantityInput = firstCheckedItem.closest('.cart-item').querySelector('.quantity-control input');
+    const qty = quantityInput.value;
+
+    // Use same URL format as buyModal.js
+    window.location.href = `paypalPAYMENT.php?totalAmount=${totalAmount.toFixed(2)}&productId=${productId}&qty=${qty}&paymentOption=${paymentOption}&carrier=${carrier}`;
+});
