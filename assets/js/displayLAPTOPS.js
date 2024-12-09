@@ -22,6 +22,13 @@ document.addEventListener('DOMContentLoaded', function() {
         laptops.forEach(laptop => {
             const tile = document.createElement('div');
             tile.className = 'col-md-4 mb-4';
+
+            // Truncate name
+            const nameMaxLength = 30;
+            let displayName = laptop.name;
+            if (displayName.length > nameMaxLength) {
+                displayName = displayName.substring(0, nameMaxLength) + '...';
+            }
             
             // Truncate description
             const maxLength = 50;
@@ -42,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="card h-100">
                     <img src="../../uploads/${laptop.image_url}" class="card-img-top" alt="${laptop.name}" style="height: 200px; object-fit: contain;">
                     <div class="card-body d-flex flex-column">
-                        <h5 class="card-title mb-1">${laptop.name}</h5>
+                        <h5 class="card-title mb-1">${displayName}</h5>
                         <p class="card-text mb-1 flex-grow-1">${description}</p>
                         <div class="mt-auto">
                             <p class="card-text mb-1"><strong>Price: ₱${laptop.price}</strong></p>
