@@ -24,14 +24,19 @@ document.addEventListener('DOMContentLoaded', function() {
             tile.className = 'col-md-4 mb-4';
             
             // Truncate description
-            const maxLength = 100;
+            const maxLength = 50;
             let description = laptop.description;
             if (description.length > maxLength) {
                 description = description.substring(0, maxLength) + '...';
             }
 
-            // Stock class
-            let stockClass = parseInt(laptop.stock) === 0 ? 'text-danger text-decoration-line-through' : '';
+            // Stock check
+            const isOutOfStock = parseInt(laptop.stock) === 0;
+            let stockClass = isOutOfStock ? 'text-danger text-decoration-line-through' : '';
+            
+            // Disable buy button if out of stock
+            const buyButtonDisabled = isOutOfStock ? 'disabled' : '';
+            const buyButtonClass = isOutOfStock ? 'btn btn-success btn-sm buy-now disabled' : 'btn btn-success btn-sm buy-now';
 
             tile.innerHTML = `
                 <div class="card h-100">
@@ -46,7 +51,11 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <button class="btn btn-primary btn-sm add-to-cart" data-product-id="${laptop.product_id}">
                                     <i class="fas fa-shopping-cart"></i> Add to Cart
                                 </button>
-                                <button class="btn btn-success btn-sm buy-now" data-product-id="${laptop.product_id}" data-product-name="${laptop.name}" data-product-price="${laptop.price}">
+                                <button class="${buyButtonClass}" ${buyButtonDisabled} 
+                                    data-product-id="${laptop.product_id}" 
+                                    data-product-name="${laptop.name}" 
+                                    data-product-price="${laptop.price}"
+                                    style="${isOutOfStock ? 'cursor: not-allowed;' : ''}">
                                     <i class="fas fa-money-bill"></i> Buy
                                 </button>
                             </div>

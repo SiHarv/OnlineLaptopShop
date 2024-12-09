@@ -51,10 +51,17 @@ if (!isset($_SESSION['user_id'])) {
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div id="cart-details"></div>
+                    <!-- Add section to display selected items -->
+                    <div id="cart-details">
+                        <h6>Selected Items:</h6>
+                        <div id="selected-items-list" class="mb-3">
+                            <!-- Selected items will be dynamically inserted here -->
+                        </div>
+                    </div>
                     <div class="form-group mt-3">
                         <label for="paymentOption">Payment Option</label>
                         <select class="form-control" id="paymentOption">
+                        <option value="--">--</option>
                             <option value="Meet Up">Meet Up</option>
                             <option value="Cash on Delivery">Cash on Delivery</option>
                             <option value="Cash on Pickup">Cash on Pickup</option>
@@ -72,8 +79,8 @@ if (!isset($_SESSION['user_id'])) {
                         </select>
                     </div>
                     <div class="form-group mt-3">
-                        <label for="totalAmount">Total Amount: <span id="modalTotalAmount">₱1000</span></label>
-                        <input type="hidden" id="totalAmountInput" name="totalAmount" value="1000">
+                        <label for="totalAmount">Total Amount: ₱<span id="modalTotalAmount">0.00</span></label>
+                        <input type="hidden" id="totalAmountInput" name="totalAmount" value="0">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>

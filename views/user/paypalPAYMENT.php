@@ -33,20 +33,14 @@
     </div>
 
     <script>
-        // Get the total amount and other details from the URL parameters
         const urlParams = new URLSearchParams(window.location.search);
         const totalAmount = urlParams.get('totalAmount');
-        const productId = urlParams.get('productId');
-        const qty = urlParams.get('qty');
+        const products = JSON.parse(decodeURIComponent(urlParams.get('products')));
         const paymentOption = urlParams.get('paymentOption');
         const carrier = urlParams.get('carrier');
 
-        console.log('Redirected to PayPal payment page with:', {
-            totalAmount: totalAmount,
-            productId: productId,
-            qty: qty,
-            paymentOption: paymentOption,
-            carrier: carrier
+        console.log('Payment details:', {
+            totalAmount, products, paymentOption, carrier
         });
 
         paypal.Buttons({
@@ -54,26 +48,21 @@
                 return actions.order.create({
                     purchase_units: [{
                         amount: {
-                            value: totalAmount // Use the total amount from the URL parameters
+                            value: totalAmount
                         }
                     }]
                 });
             },
             onApprove: function(data, actions) {
                 return actions.order.capture().then(function(details) {
-                    /* alert('Transaction completed by ' + details.payer.name.given_name); */
-
-                    console.log('Payment approved with details:', details);
-
-                    // Send the payment details and order details to proceedPAYMENT.php
+                    // Use same data structure for both flows
                     fetch('../../backend/userFUNCTIONS/proceedPAYMENT.php', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({
-                            product_id: productId,
-                            qty: qty,
+                            products: products,
                             totalAmount: totalAmount,
                             carrier: carrier,
                             payment_option: paymentOption,
@@ -97,15 +86,11 @@
                     })
                     .catch(error => {
                         console.error('Error:', error);
-                        alert('An error occurred while placing the order. Please try again.');
+                        alert('An error occurred while placing the order.');
                     });
                 });
-            },
-            onError: function(err) {
-                console.error('PayPal Checkout onError', err);
-                alert('An error occurred during the transaction. Please try again.');
             }
-        }).render('#paypal-button-container'); // Render the PayPal button into the container
+        }).render('#paypal-button-container');
     </script>
 </body>
 </html>

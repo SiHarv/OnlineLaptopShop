@@ -164,12 +164,21 @@ document.getElementById('proceedCartPayment').addEventListener('click', function
     const carrier = document.getElementById('carrier').value;
     const totalAmount = parseFloat(document.getElementById('cart-total').textContent);
 
-    // Get first selected item (maintaining single product format)
-    const firstCheckedItem = checkedItems[0];
-    const productId = firstCheckedItem.getAttribute('data-item-id');
-    const quantityInput = firstCheckedItem.closest('.cart-item').querySelector('.quantity-control input');
-    const qty = quantityInput.value;
+    // Collect all selected products
+    const selectedProducts = [];
+    checkedItems.forEach(item => {
+        const productId = item.getAttribute('data-item-id');
+        const quantityInput = item.closest('.cart-item').querySelector('.quantity-control input');
+        const qty = parseInt(quantityInput.value);
+        selectedProducts.push({
+            productId,
+            qty
+        });
+    });
 
-    // Use same URL format as buyModal.js
-    window.location.href = `paypalPAYMENT.php?totalAmount=${totalAmount.toFixed(2)}&productId=${productId}&qty=${qty}&paymentOption=${paymentOption}&carrier=${carrier}`;
+    // Encode the products array for URL parameters
+    const productsParam = encodeURIComponent(JSON.stringify(selectedProducts));
+
+    // Redirect with all products info
+    window.location.href = `paypalPAYMENT.php?totalAmount=${totalAmount.toFixed(2)}&products=${productsParam}&paymentOption=${paymentOption}&carrier=${carrier}`;
 });

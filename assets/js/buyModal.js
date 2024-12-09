@@ -56,22 +56,20 @@ function showPaymentModal(productId, productName, productPrice) {
 }
 
 function proceedToPayment(productId, productName, productPrice) {
-    console.log('Starting payment process with:', {
-        productId: productId,
-        productName: productName,
-        basePrice: productPrice,
-        quantity: document.getElementById('qty').value,
-        paymentOption: document.getElementById('paymentOption').value,
-        carrier: document.getElementById('carrier').value
-    });
-
     const qty = document.getElementById('qty').value;
     const paymentOption = document.getElementById('paymentOption').value;
     const carrier = document.getElementById('carrier').value;
     const totalAmount = parseFloat(productPrice) * parseInt(qty);
 
-    console.log('Calculated total amount:', totalAmount);
+    // Create products array in same format as cart
+    const products = [{
+        productId: productId,
+        qty: parseInt(qty)
+    }];
 
-    // Redirect to PayPal payment page with total amount and other details
-    window.location.href = `../../views/user/paypalPAYMENT.php?totalAmount=${totalAmount.toFixed(2)}&productId=${productId}&qty=${qty}&paymentOption=${paymentOption}&carrier=${carrier}`;
+    // Encode the products array for URL parameters
+    const productsParam = encodeURIComponent(JSON.stringify(products));
+
+    // Use same URL structure as cart checkout
+    window.location.href = `../../views/user/paypalPAYMENT.php?totalAmount=${totalAmount.toFixed(2)}&products=${productsParam}&paymentOption=${paymentOption}&carrier=${carrier}`;
 }
