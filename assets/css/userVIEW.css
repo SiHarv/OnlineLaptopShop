@@ -11,19 +11,22 @@
 }
 
 .card-img-top {
-    padding: 1rem;
+    padding: 0.5rem;
     background: #f8f9fa;
+    height: 150px; /* Reduce image container height */
+    object-fit: contain;
 }
 
 .card-body {
     display: flex;
     flex-direction: column;
     height: 100%;
-    padding: 1.5rem;
+    padding: 1rem;
+    gap: 0.5rem; /* Reduce space between elements */
 }
 
 .card-title, .card-text {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
 }
 
 .card-text {
@@ -36,6 +39,11 @@
 
 .card-body .mt-auto {
     margin-top: auto;
+}
+
+.specs-details, .price-mobile {
+    text-align: left; /* Align price to left */
+    margin-top: 0.5rem;
 }
 
 .btn-primary {
@@ -76,6 +84,95 @@
 
     .main-content {
         margin-left: 0 !important;
+    }
+    
+    .card {
+        height: auto;
+        margin-bottom: 0.5rem;
+        padding: 0;
+    }
+    
+    .card-title {
+        font-size: 0.85rem;
+        line-height: 1.2;
+        margin-bottom: 0.35rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+    }
+    
+    .card-text {
+        font-size: 0.75rem;
+        line-height: 1.3;
+        margin-bottom: 0.35rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+    
+    .action-buttons button {
+        padding: 0.25rem 0.5rem;
+    }
+    
+    .action-buttons button i {
+        margin: 0;
+    }
+    
+    .action-buttons button span {
+        display: none;
+    }
+    
+    .price-mobile {
+        font-size: 0.8rem;
+        font-weight: bold;
+        text-align: left;
+        margin: 0.25rem 0;
+    }
+
+    .btn {
+        font-size: 0.7rem;
+        padding: 0.25rem 0.5rem;
+    }
+
+    .card-body {
+        padding: 0.5rem !important;
+        gap: 0.25rem;
+    }
+
+    .card-img-top {
+        height: 120px !important; /* Force override desktop height */
+        padding: 0.25rem;
+        margin: 0.25rem;
+        object-fit: contain;
+    }
+
+    .mobile-content {
+        margin-bottom: 1px;
+    }
+
+    .card-body {
+        padding-top: 1px !important; /* Reduce top padding */
+    }
+    
+    .card-title {
+        margin-top: 0; /* Remove top margin from title */
+    }
+    
+    /* Container spacing adjustments */
+    .card > * + * {
+        margin-top: 0; /* Remove default spacing between card elements */
+    }
+
+    .details-container {
+        padding: 0;
+    }
+
+    .action-buttons {
+        margin-top: auto;
     }
 }
 

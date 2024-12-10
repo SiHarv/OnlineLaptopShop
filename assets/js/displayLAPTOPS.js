@@ -26,7 +26,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         laptops.forEach(laptop => {
             const tile = document.createElement('div');
-            tile.className = 'col-md-4 mb-4';
+            // Update class to work better with mobile
+            tile.className = 'col-6 col-md-4 mb-4'; // col-6 makes it 2 per row on mobile
 
             // Truncate name
             const nameMaxLength = 30;
@@ -51,28 +52,29 @@ document.addEventListener('DOMContentLoaded', function() {
             const buyButtonClass = isOutOfStock ? 'btn btn-success btn-sm buy-now disabled' : 'btn btn-success btn-sm buy-now';
 
             tile.innerHTML = `
-                <div class="card h-100">
-                    <img src="../../uploads/${laptop.image_url}" class="card-img-top" alt="${laptop.name}" style="height: 200px; object-fit: contain;">
+                <div class="card h-100" data-laptop='${JSON.stringify(laptop)}'>
+                    <img src="../../uploads/${laptop.image_url}" class="card-img-top modal-trigger" alt="${laptop.name}" style="height: 200px; object-fit: contain; cursor: pointer;">
                     <div class="card-body d-flex flex-column">
-                        <h5 class="card-title mb-1">${displayName}</h5>
-                        <p class="card-text mb-1 flex-grow-1">${description}</p>
-                        <div class="mt-auto">
-                            <p class="card-text mb-1"><strong>CPU: ${laptop.cpu}</strong></p>
-                            <p class="card-text mb-1"><strong>GPU: ${laptop.gpu}</strong></p>
-                            <p class="card-text mb-1"><strong>Price: ₱${formatNumberWithCommas(laptop.price)}</strong></p>
-                            <p class="card-text mb-1 ${stockClass}">Stock: ${laptop.stock}</p>
-                            <div class="d-flex" style="gap:10px">
-                                <button class="btn btn-primary btn-sm add-to-cart" data-product-id="${laptop.product_id}">
-                                    <i class="fas fa-shopping-cart"></i> Add to Cart
-                                </button>
-                                <button class="${buyButtonClass}" ${buyButtonDisabled} 
-                                    data-product-id="${laptop.product_id}" 
-                                    data-product-name="${laptop.name}" 
-                                    data-product-price="${laptop.price}"
-                                    style="${isOutOfStock ? 'cursor: not-allowed;' : ''}">
-                                    <i class="fas fa-money-bill"></i> Buy
-                                </button>
+                        <div class="details-container modal-trigger" style="cursor: pointer;">
+                            <h5 class="card-title mb-1">${displayName}</h5>
+                            <p class="card-text mb-1 flex-grow-1">${description}</p>
+                            <div class="specs-details mt-auto d-none d-md-block">
+                                <p class="card-text mb-1"><strong>CPU: ${laptop.cpu}</strong></p>
+                                <p class="card-text mb-1"><strong>GPU: ${laptop.gpu}</strong></p>
+                                <p class="card-text mb-1"><strong>Price: ₱${formatNumberWithCommas(laptop.price)}</strong></p>
+                                <p class="card-text mb-1 ${stockClass}">Stock: ${laptop.stock}</p>
                             </div>
+                            <div class="price-mobile d-md-none">
+                                <p class="card-text mb-1"><strong>₱${formatNumberWithCommas(laptop.price)}</strong></p>
+                            </div>
+                        </div>
+                        <div class="action-buttons d-flex" style="gap:10px">
+                            <button class="btn btn-primary btn-sm add-to-cart" data-product-id="${laptop.product_id}">
+                                <i class="fas fa-shopping-cart"></i>
+                            </button>
+                            <button class="${buyButtonClass}" ${buyButtonDisabled}>
+                                <i class="fas fa-money-bill"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -95,6 +97,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 const productName = this.getAttribute('data-product-name');
                 const productPrice = this.getAttribute('data-product-price');
                 showPaymentModal(productId, productName, productPrice);
+            });
+        });
+
+        // Add click handler for cards
+        document.querySelectorAll('.modal-trigger').forEach(element => {
+            element.addEventListener('click', function(e) {
+                const laptopData = JSON.parse(this.closest('.card').dataset.laptop);
+                document.getElementById('modalLaptopName').textContent = laptopData.name;
+                document.getElementById('modalLaptopImage').src = `../../uploads/${laptopData.image_url}`;
+                document.getElementById('modalLaptopDescription').textContent = laptopData.description;
+                document.getElementById('modalLaptopCPU').textContent = laptopData.cpu;
+                document.getElementById('modalLaptopGPU').textContent = laptopData.gpu;
+                document.getElementById('modalLaptopPrice').textContent = formatNumberWithCommas(laptopData.price);
+                document.getElementById('modalLaptopStock').textContent = laptopData.stock;
+                
+                const modal = new bootstrap.Modal(document.getElementById('laptopDetailModal'));
+                modal.show();
             });
         });
     }

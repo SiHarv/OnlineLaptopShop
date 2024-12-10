@@ -18,6 +18,9 @@ if (!isset($_SESSION['user_id'])) {
 </head>
 <body>
     <?php include 'buyMODAL.php'; ?>
+
+    <!-- Laptop Detail Modal -->
+    <?php include 'laptopDetailModal.php'; ?>
     <div class="wrapper">
         <!-- Sidebar -->
         <?php include 'sidebar.php'; ?>
