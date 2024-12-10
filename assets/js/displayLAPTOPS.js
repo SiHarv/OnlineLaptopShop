@@ -1,5 +1,10 @@
 // FILE: displayLaptops.js
 
+// Function to format number with commas
+function formatNumberWithCommas(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     let laptopsData = []; // Store all laptops data
 
@@ -52,9 +57,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         <h5 class="card-title mb-1">${displayName}</h5>
                         <p class="card-text mb-1 flex-grow-1">${description}</p>
                         <div class="mt-auto">
-                            <p class="card-text mb-1"><strong>Price: ₱${laptop.price}</strong></p>
+                            <p class="card-text mb-1"><strong>CPU: ${laptop.cpu}</strong></p>
+                            <p class="card-text mb-1"><strong>GPU: ${laptop.gpu}</strong></p>
+                            <p class="card-text mb-1"><strong>Price: ₱${formatNumberWithCommas(laptop.price)}</strong></p>
                             <p class="card-text mb-1 ${stockClass}">Stock: ${laptop.stock}</p>
-                            <div class="d-flex " style="gap:10px">
+                            <div class="d-flex" style="gap:10px">
                                 <button class="btn btn-primary btn-sm add-to-cart" data-product-id="${laptop.product_id}">
                                     <i class="fas fa-shopping-cart"></i> Add to Cart
                                 </button>
@@ -100,7 +107,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const filtered = laptopsData.filter(laptop => {
             // Search term filter
             const matchesSearch = laptop.name.toLowerCase().includes(searchTerm) ||
-                                laptop.description.toLowerCase().includes(searchTerm);
+                     laptop.description.toLowerCase().includes(searchTerm) ||
+                     laptop.cpu.toLowerCase().includes(searchTerm) ||
+                     laptop.gpu.toLowerCase().includes(searchTerm);
 
             // Price filter
             let matchesPrice = true;

@@ -45,6 +45,8 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Description</th>
+                                <th>CPU</th>
+                                <th>GPU</th>
                                 <th>Price</th>
                                 <th>Stock</th>
                                 <th>Image</th>
@@ -78,6 +80,14 @@
                                 <div class="form-group">
                                     <label for="">Description</label>
                                     <textarea name="description" id="description" class="form-control form-control-lg"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">CPU</label>
+                                    <input type="text" name="cpu" id="cpu" class="form-control form-control-lg">
+                                </div>
+                                <div class="form-group">
+                                    <label for="">GPU</label> 
+                                    <input type="text" name="gpu" id="gpu" class="form-control form-control-lg">
                                 </div>
                                 <div class="form-group">
                                     <label for="">Price</label>

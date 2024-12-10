@@ -174,4 +174,41 @@ $(document).ready(function () {
             }
         });
     });
+
+    // Edit button click handler
+    $(document).on('click', '.edit-btn', function() {
+        let product_id = $(this).data('id');
+        $.ajax({
+            url: "../../backend/adminFUNCTIONS/insertIMAGE.php",
+            type: "POST",
+            data: {product_id: product_id},
+            success: function(data) {
+                $("#edit-image").html(data);
+                $("#updateImage").modal('show');
+            }
+        });
+    });
+
+    // Delete button click handler
+    $(document).on('click', '.delete-btn', function() {
+        let product_id = $(this).data('id');
+        $("#delete_id").val(product_id);
+        $("#deleteConfirmModal").modal('show');
+    });
+
+    // Confirm delete handler
+    $("#confirmDelete").click(function() {
+        let product_id = $("#delete_id").val();
+        $.ajax({
+            url: "../../backend/adminFUNCTIONS/deleteIMAGE.php",
+            type: "POST",
+            data: {product_id: product_id},
+            success: function(data) {
+                if(data == 1) {
+                    $("#deleteConfirmModal").modal('hide');
+                    loadImage();
+                }
+            }
+        });
+    });
 });
