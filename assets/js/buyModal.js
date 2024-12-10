@@ -18,8 +18,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Update total when quantity changes
     qtyInput.addEventListener('input', function() {
-        const priceElement = document.querySelector('#laptop-details p:nth-child(2)');
-        const basePrice = parseFloat(priceElement.textContent.split('₱')[1]);
+        const priceElement = document.getElementById('productPrice');
+        const basePrice = parseFloat(priceElement.textContent.replace('₱', '').replace(',', ''));
         const quantity = parseInt(this.value) || 0;
         const total = basePrice * quantity;
         
@@ -38,7 +38,7 @@ function showPaymentModal(productId, productName, productPrice) {
     const laptopDetails = document.getElementById('laptop-details');
     laptopDetails.innerHTML = `
         <p><strong>Product:</strong> ${productName}</p>
-        <p><strong>Price:</strong> ₱${productPrice}</p>
+        <p><strong>Price:</strong> ₱<span id="productPrice">${productPrice.toFixed(2)}</span></p>
     `;
     
     // Reset and recalculate total
@@ -56,20 +56,24 @@ function showPaymentModal(productId, productName, productPrice) {
 }
 
 function proceedToPayment(productId, productName, productPrice) {
+    console.log('Starting payment process with:', {
+        productId: productId,
+        productName: productName,
+        basePrice: productPrice,
+        quantity: document.getElementById('qty').value,
+        paymentOption: document.getElementById('paymentOption').value,
+        carrier: document.getElementById('carrier').value
+    });
+
     const qty = document.getElementById('qty').value;
     const paymentOption = document.getElementById('paymentOption').value;
     const carrier = document.getElementById('carrier').value;
     const totalAmount = parseFloat(productPrice) * parseInt(qty);
 
-    // Create products array in same format as cart
-    const products = [{
-        productId: productId,
-        qty: parseInt(qty)
-    }];
+    const products = JSON.stringify([{ productId, productName, productPrice, qty }]);
 
-    // Encode the products array for URL parameters
-    const productsParam = encodeURIComponent(JSON.stringify(products));
+    console.log('Calculated total amount:', totalAmount);
 
-    // Use same URL structure as cart checkout
-    window.location.href = `../../views/user/paypalPAYMENT.php?totalAmount=${totalAmount.toFixed(2)}&products=${productsParam}&paymentOption=${paymentOption}&carrier=${carrier}`;
+    // Redirect to PayPal payment page with total amount and other details
+    window.location.href = `../../views/user/paypalPAYMENT.php?totalAmount=${totalAmount.toFixed(2)}&products=${encodeURIComponent(products)}&paymentOption=${paymentOption}&carrier=${carrier}`;
 }
