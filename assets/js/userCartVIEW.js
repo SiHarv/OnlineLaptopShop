@@ -14,36 +14,42 @@ function fetchCartItems() {
                 return;
             }
 
-            let html = '<div class="list-group">';
+            let html = '<div class="list-group cart-list">';
             data.forEach(item => {
                 const itemTotal = item.price * item.quantity;
                 html += `
                     <div class="list-group-item cart-item">
                         <div class="row align-items-center">
-                            <div class="col-md-1 checkbox-container">
-                                <input type="checkbox" class="item-checkbox" data-item-id="${item.product_id}" data-item-total="${itemTotal}" onchange="updateTotal()">
-                            </div>
-                            <div class="col-md-2">
-                                <img src="../../uploads/${item.image_url}" class="img-fluid" alt="${item.name}">
-                            </div>
-                            <div class="col-md-3">
-                                <h5>${item.name}</h5>
-                                <p class="text-muted">₱${item.price}</p>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="input-group quantity-control">
-                                    <button class="btn btn-outline-secondary" onclick="updateQuantity(${item.product_id}, -1)">-</button>
-                                    <input type="number" class="form-control text-center" value="${item.quantity}" readonly>
-                                    <button class="btn btn-outline-secondary" onclick="updateQuantity(${item.product_id}, 1)">+</button>
+                            <div class="col-12 col-md-6 item-info-container">
+                                <div class="row align-items-center">
+                                    <div class="col-2 col-md-2 checkbox-container">
+                                        <input type="checkbox" class="item-checkbox" data-item-id="${item.product_id}" data-item-total="${itemTotal}" onchange="updateTotal()">
+                                    </div>
+                                    <div class="col-4 col-md-4 image-container">
+                                        <img src="../../uploads/${item.image_url}" class="img-fluid" alt="${item.name}">
+                                    </div>
+                                    <div class="col-6 col-md-6 details-container">
+                                        <h5>${item.name}</h5>
+                                        <p class="text-muted">₱${item.price}</p>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-2">
-                                <p class="mb-0">₱${itemTotal.toFixed(2)}</p>
-                            </div>
-                            <div class="col-md-1">
-                                <button class="btn btn-danger btn-sm" onclick="removeItem(${item.product_id})">
-                                    <i class="fas fa-trash"></i>
-                                </button>
+                            <div class="col-12 col-md-6 item-action-container d-flex justify-content-end align-items-center">
+                                <div class="total-container">
+                                    <p class="mb-0">₱${itemTotal.toFixed(2)}</p>
+                                </div>
+                                <div class="quantity-container">
+                                    <div class="input-group quantity-control">
+                                        <button class="btn btn-outline-secondary" onclick="updateQuantity(${item.product_id}, -1)">-</button>
+                                        <input type="number" class="form-control text-center" value="${item.quantity}" readonly>
+                                        <button class="btn btn-outline-secondary" onclick="updateQuantity(${item.product_id}, 1)">+</button>
+                                    </div>
+                                </div>
+                                <div class="remove-container">
+                                    <button class="btn btn-danger btn-sm" onclick="removeItem(${item.product_id})">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
