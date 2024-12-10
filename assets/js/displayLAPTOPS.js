@@ -121,32 +121,42 @@ document.addEventListener('DOMContentLoaded', function() {
     // Search and filter function
     function filterLaptops() {
         const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-        const priceFilter = document.getElementById('priceFilter').value;
+        const priceFilter = document.getElementById('priceFilterModal').value;
 
-        const filtered = laptopsData.filter(laptop => {
-            // Search term filter
-            const matchesSearch = laptop.name.toLowerCase().includes(searchTerm) ||
-                     laptop.description.toLowerCase().includes(searchTerm) ||
-                     laptop.cpu.toLowerCase().includes(searchTerm) ||
-                     laptop.gpu.toLowerCase().includes(searchTerm);
+        let filtered = laptopsData;
 
-            // Price filter
-            let matchesPrice = true;
-            if (priceFilter) {
-                const price = parseFloat(laptop.price);
-                const [min, max] = priceFilter.split('-').map(val => val === '+' ? Infinity : parseFloat(val));
-                matchesPrice = price >= min && (max === Infinity || price <= max);
-            }
+        // Apply search term filter
+        if (searchTerm) {
+            filtered = filtered.filter(laptop => {
+                const matchesSearch = laptop.name.toLowerCase().includes(searchTerm) ||
+                         laptop.description.toLowerCase().includes(searchTerm) ||
+                         laptop.cpu.toLowerCase().includes(searchTerm) ||
+                         laptop.gpu.toLowerCase().includes(searchTerm);
 
-            return matchesSearch && matchesPrice;
-        });
+                return matchesSearch;
+            });
+        }
+
+        // Apply price filter
+        if (priceFilter === 'low-to-high') {
+            filtered.sort((a, b) => a.price - b.price);
+        } else if (priceFilter === 'high-to-low') {
+            filtered.sort((a, b) => b.price - a.price);
+        }
 
         displayLaptops(filtered);
     }
 
     // Event listeners
     document.getElementById('searchInput').addEventListener('input', filterLaptops);
-    document.getElementById('priceFilter').addEventListener('change', filterLaptops);
+
+    // Event listeners for modal inputs
+    document.getElementById('applyFilters').addEventListener('click', function() {
+        const priceFilter = document.getElementById('priceFilterModal').value;
+
+        filterLaptops();
+        $('#sortFilterModal').modal('hide');
+    });
 
     // Initial fetch
     fetchLaptops();

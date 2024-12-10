@@ -20,7 +20,11 @@ if (!isset($_SESSION['user_id'])) {
     <?php include 'buyMODAL.php'; ?>
 
     <!-- Laptop Detail Modal -->
-    <?php include 'laptopDetailModal.php'; ?>
+    
+    
+    <!-- Sort and Filter Modal -->
+    <?php include 'sortFilterModal.php'; ?>
+
     <div class="wrapper">
         <!-- Sidebar -->
         <?php include 'sidebar.php'; ?>
@@ -37,15 +41,12 @@ if (!isset($_SESSION['user_id'])) {
                                 <h4>Available Laptops</h4>
                             </div>
                             <div class="col-md-6">
-                                <div class="d-flex " style="gap: 10px">
-                                    <input type="text" id="searchInput" class="form-control" placeholder="Search laptops...">
-                                    <select id="priceFilter" class="form-select">
-                                        <option value="">Filter by Price</option>
-                                        <option value="0-20000">₱0 - ₱20,000</option>
-                                        <option value="20001-40000">₱20,001 - ₱40,000</option>
-                                        <option value="40001-60000">₱40,001 - ₱60,000</option>
-                                        <option value="60001+">Above ₱60,000</option>
-                                    </select>
+                                <div class="d-flex justify-content-end flex-wrap" style="gap: 10px">
+                                    <input type="text" id="searchInput" class="form-control search-bar" placeholder="Search laptops...">
+                                    <!-- Button to trigger modal -->
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sortFilterModal">
+                                        Sort & Filter
+                                    </button>
                                 </div>
                             </div>
                         </div>
