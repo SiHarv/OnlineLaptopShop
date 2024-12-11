@@ -30,7 +30,8 @@ if(isset($_POST['update_password'])) {
     
     if($stmt->execute()) {
         $_SESSION['message'] = "Password updated successfully!";
-        header("Location: ../views/loginPAGE.php");
+        header("Location: ../views/resetPASSWORD.php");
+        exit();
     } else {
         $_SESSION['error'] = true;
         $_SESSION['message'] = "Failed to update password";

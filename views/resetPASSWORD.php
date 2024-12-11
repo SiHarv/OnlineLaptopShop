@@ -65,12 +65,22 @@
             margin-bottom: 30px;
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <?php if(isset($_SESSION['message'])): ?>
         <script>
-            alert('<?php echo $_SESSION['message']; ?>');
-            window.location.href = 'loginPAGE.php'; // Redirect to login page after alert
+            Swal.fire({
+                title: 'Success!',
+                text: '<?php echo $_SESSION['message']; ?>',
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'loginPAGE.php';
+                }
+            });
         </script>
         <?php unset($_SESSION['message']); ?>
     <?php endif; ?>
