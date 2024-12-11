@@ -20,8 +20,7 @@ if (!isset($_SESSION['user_id'])) {
     <?php include 'buyMODAL.php'; ?>
 
     <!-- Laptop Detail Modal -->
-    
-    
+    <?php include 'laptopDetailModal.php'; ?>
     <!-- Sort and Filter Modal -->
     <?php include 'sortFilterModal.php'; ?>
 

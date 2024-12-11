@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                         <div class="action-buttons d-flex" style="gap:10px">
                             <button class="btn btn-primary btn-sm add-to-cart" data-product-id="${laptop.product_id}">
-                                <i class="fas fa-shopping-cart"> Add to Cart</i>
+                                <i class="fas fa-shopping-cart"> Cart</i>
                             </button>
                             <button class="${buyButtonClass}" data-product-id="${laptop.product_id}" data-product-name="${laptop.name}" data-product-price="${laptop.price}" ${buyButtonDisabled}>
                                 <i class="fas fa-money-bill"> Buy</i>
