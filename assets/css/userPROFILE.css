@@ -6,7 +6,7 @@
 }
 
 body {
-    background: linear-gradient(45deg, #2c3e50, #4ca1af);
+    background: linear-gradient(45deg, #080710, #2d3436); /* Match login page background */
     height: 100vh;
     display: flex;
     align-items: center;
@@ -114,7 +114,73 @@ h3 {
 }
 
 @media (max-width: 768px) {
+    .registration-container {
+        width: 90%;
+        margin: 20px auto;
+        padding: 20px;
+    }
+
     .registration-form {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr; /* Keep 2 columns */
+        gap: 10px; /* Reduced gap for mobile */
+    }
+
+    .form-group input {
+        font-size: 14px; /* Smaller font for inputs */
+        height: 32px; /* Slightly smaller height */
+    }
+
+    .laptop-shape {
+        width: 300px;
+        opacity: 0.2;
+    }
+
+    .laptop-shape {
+        width: 300px;
+        opacity: 0.2;
+    }
+
+    .first-shape {
+        left: -150px;
+        top: -150px;
+    }
+
+    .second-shape {
+        right: -150px;
+        bottom: -150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .registration-container {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .registration-form {
+        grid-template-columns: 1fr 1fr; /* Maintain 2 columns */
+        gap: 8px; /* Even smaller gap for phones */
+    }
+
+    .form-group label {
+        font-size: 12px; /* Smaller labels */
+    }
+
+    .form-group input {
+        padding: 6px;
+        font-size: 13px;
+    }
+
+    .laptop-shape {
+        width: 200px;
+    }
+
+    .modal-dialog {
+        margin: 10px;
+        width: 95%;
+    }
+
+    .modal-content {
+        padding: 10px;
     }
 }

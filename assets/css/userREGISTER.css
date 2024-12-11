@@ -48,19 +48,19 @@ body {
 .registration-container {
     width: 100%;
     max-width: 600px;
-    background-color: rgba(255, 255, 255, 0.13);
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.13);
     border-radius: 10px;
     backdrop-filter: blur(10px);
     border: 2px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
-    padding: 30px 25px;
-    z-index: 2;
+    margin: 20px;
 }
 
 .registration-form {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    gap: 12px; /* Reduced from 20px */
 }
 
 .registration-form label {
@@ -103,14 +103,53 @@ body {
     background-color: #0056b3;
 }
 
+.form-group {
+    margin-bottom: 8px; /* Reduced from 15px */
+}
+
+.form-group label {
+    display: block;
+    color: #ffffff;
+    margin-bottom: 4px; /* Reduced from 8px */
+    font-size: 14px;
+}
+
+.form-group input {
+    display: block;
+    height: 40px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.07);
+    border: none;
+    color: #ffffff;
+    padding: 0 10px;
+    font-size: 14px;
+    border-radius: 3px;
+}
+
+button[type="submit"] {
+    grid-column: 1 / -1;
+    background-color: #ffffff;
+    color: #080710;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #f0f0f0;
+}
+
 h3 {
     grid-column: 1 / -1;
     color: #ffffff;
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 500;
-    line-height: 42px;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 @media (max-width: 768px) {
@@ -292,5 +331,45 @@ h3 {
 
     .laptop-shape {
         width: 200px;
+    }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .registration-container {
+        width: 90%;
+        margin: 20px auto;
+        padding: 20px;
+    }
+
+    .registration-form {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .form-group input {
+        font-size: 14px;
+        height: 35px;
+    }
+}
+
+@media (max-width: 480px) {
+    .registration-container {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .registration-form {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+    .form-group label {
+        font-size: 12px;
+    }
+
+    .form-group input {
+        padding: 6px;
+        font-size: 13px;
     }
 }
