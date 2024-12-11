@@ -1,11 +1,13 @@
 <?php
 include '../../config/database.php';
 
-if(isset($_POST['product_id']) && isset($_POST['name']) && isset($_POST['description']) && isset($_POST['price']) && isset($_POST['stock'])) {
+if(isset($_POST['product_id']) && isset($_POST['name']) && isset($_POST['description']) && isset($_POST['cpu']) && isset($_POST['gpu']) && isset($_POST['price']) && isset($_POST['stock'])) {
     
     $product_id = $_POST['product_id'];
     $name = $_POST['name'];
     $description = $_POST['description'];
+    $cpu = $_POST['cpu'];
+    $gpu = $_POST['gpu']; 
     $price = $_POST['price'];
     $stock = $_POST['stock'];
     $old_image = $_POST['old_image'];
@@ -38,6 +40,8 @@ if(isset($_POST['product_id']) && isset($_POST['name']) && isset($_POST['descrip
             $sql = "UPDATE Products SET 
                     name='{$name}', 
                     description='{$description}', 
+                    cpu='{$cpu}',
+                    gpu='{$gpu}',
                     price='{$price}', 
                     stock='{$stock}', 
                     image_url='{$new_image}' 
@@ -48,6 +52,8 @@ if(isset($_POST['product_id']) && isset($_POST['name']) && isset($_POST['descrip
         $sql = "UPDATE Products SET 
                 name='{$name}', 
                 description='{$description}', 
+                cpu='{$cpu}',
+                gpu='{$gpu}',
                 price='{$price}', 
                 stock='{$stock}' 
                 WHERE product_id='{$product_id}'";

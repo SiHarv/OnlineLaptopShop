@@ -17,7 +17,13 @@ if (!isset($_SESSION['user_id'])) {
 
 </head>
 <body>
-<?php include 'buyMODAL.php'; ?>
+    <?php include 'buyMODAL.php'; ?>
+
+    <!-- Laptop Detail Modal -->
+    <?php include 'laptopDetailModal.php'; ?>
+    <!-- Sort and Filter Modal -->
+    <?php include 'sortFilterModal.php'; ?>
+
     <div class="wrapper">
         <!-- Sidebar -->
         <?php include 'sidebar.php'; ?>
@@ -27,8 +33,27 @@ if (!isset($_SESSION['user_id'])) {
             <?php include 'userHEADER.php'; ?>
             <!-- Main Content -->
             <div class="content p-4">
-                <h3>Available Laptops</h3>
-                <div id="laptop-container" class="row g-4"></div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <h4>Available Laptops</h4>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex justify-content-end flex-wrap" style="gap: 10px">
+                                    <input type="text" id="searchInput" class="form-control search-bar" placeholder="Search laptops...">
+                                    <!-- Button to trigger modal -->
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sortFilterModal">
+                                        Sort & Filter
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="laptop-container" class="row g-4"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -37,6 +62,7 @@ if (!isset($_SESSION['user_id'])) {
     <script src="../../assets/js/bootstrap.js"></script>
     <script src="https://kit.fontawesome.com/your-code.js"></script>
     <script src="../../assets/js/displayLAPTOPS.js"></script>
-    <!-- Add this JavaScript before closing body tag -->  
+    <script src="../../assets/js/sidebar.js"></script>
+
 </body>
 </html>

@@ -18,8 +18,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Update total when quantity changes
     qtyInput.addEventListener('input', function() {
-        const priceElement = document.querySelector('#laptop-details p:nth-child(2)');
-        const basePrice = parseFloat(priceElement.textContent.split('₱')[1]);
+        const priceElement = document.getElementById('productPrice');
+        const basePrice = parseFloat(priceElement.textContent.replace('₱', '').replace(',', ''));
         const quantity = parseInt(this.value) || 0;
         const total = basePrice * quantity;
         
@@ -32,15 +32,13 @@ document.addEventListener('DOMContentLoaded', function() {
     qtyInput.dispatchEvent(new Event('input'));
 });
 
-
-
 function showPaymentModal(productId, productName, productPrice) {
     console.log('Modal opened with:', { productId, productName, productPrice });
     
     const laptopDetails = document.getElementById('laptop-details');
     laptopDetails.innerHTML = `
         <p><strong>Product:</strong> ${productName}</p>
-        <p><strong>Price:</strong> ₱${productPrice}</p>
+        <p><strong>Price:</strong> ₱<span id="productPrice">${productPrice.toFixed(2)}</span></p>
     `;
     
     // Reset and recalculate total
@@ -72,40 +70,10 @@ function proceedToPayment(productId, productName, productPrice) {
     const carrier = document.getElementById('carrier').value;
     const totalAmount = parseFloat(productPrice) * parseInt(qty);
 
+    const products = JSON.stringify([{ productId, productName, productPrice, qty }]);
+
     console.log('Calculated total amount:', totalAmount);
 
-    const formData = new FormData();
-    formData.append('product_id', productId);
-    formData.append('qty', qty);
-    formData.append('totalAmount', totalAmount.toFixed(2));
-    formData.append('payment_option', paymentOption);
-    formData.append('carrier', carrier);
-
-    console.log('FormData entries:');
-    for (let pair of formData.entries()) {
-        console.log(pair[0] + ': ' + pair[1]);
-    }
-
-    fetch('../../backend/userFUNCTIONS/proceedPAYMENT.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.text())
-    .then(text => {
-        console.log('Raw server response:', text);
-        return JSON.parse(text);
-    })
-    .then(data => {
-        console.log('Parsed server response:', data);
-        if (data.status === 'success') {
-            alert('Order placed successfully!');
-            window.location.reload();
-        } else {
-            
-        }
-    })
-    .catch(error => {
-        console.error('Error details:', error);
-        alert('Error placing order: ' + error.message);
-    });
+    // Redirect to PayPal payment page with total amount and other details
+    window.location.href = `../../views/user/paypalPAYMENT.php?totalAmount=${totalAmount.toFixed(2)}&products=${encodeURIComponent(products)}&paymentOption=${paymentOption}&carrier=${carrier}`;
 }

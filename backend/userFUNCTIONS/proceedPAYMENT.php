@@ -6,27 +6,38 @@ header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
-        // Start transaction
         $conn->begin_transaction();
 
         $user_id = $_SESSION['user_id'];
-        $product_id = $_POST['product_id'];
-        $qty = $_POST['qty'];
-        $totalAmount = $_POST['totalAmount'];
-        $carrier = isset($_POST['carrier']) ? $_POST['carrier'] : null;
-        $payment_option = $_POST['payment_option'];
+        $data = json_decode(file_get_contents('php://input'), true);
 
-        // First insert into Orders table
-        $sql = "INSERT INTO Orders (user_id, product_id, qty, total_amount, status, carrier, payment_option) 
-                VALUES (?, ?, ?, ?, 'Pending', ?, ?)";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("iiidss", $user_id, $product_id, $qty, $totalAmount, $carrier, $payment_option);
+        if (!$data || !isset($data['products'])) {
+            throw new Exception('Invalid JSON data');
+        }
 
-        if ($stmt->execute()) {
-            // Get the last inserted order_id
+        $carrier = isset($data['carrier']) ? $data['carrier'] : null;
+        $payment_option = $data['payment_option'];
+        
+        // Current code works for both single and multiple products
+        // because it processes the products array the same way
+        foreach ($data['products'] as $product) {
+            $product_id = $product['productId'];
+            $qty = $product['qty'];
+            $total_amount = $data['totalAmount']; // You might want to calculate per-product total
+
+            // Insert into Orders table
+            $sql = "INSERT INTO Orders (user_id, product_id, qty, total_amount, status, carrier, payment_option) 
+                    VALUES (?, ?, ?, ?, 'Pending', ?, ?)";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("iiidss", $user_id, $product_id, $qty, $total_amount, $carrier, $payment_option);
+            
+            if (!$stmt->execute()) {
+                throw new Exception('Failed to insert into Orders table');
+            }
+
             $order_id = $conn->insert_id;
 
-            // Get the product price
+            // Get product price
             $price_sql = "SELECT price FROM products WHERE product_id = ?";
             $price_stmt = $conn->prepare($price_sql);
             $price_stmt->bind_param("i", $product_id);
@@ -41,20 +52,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $allorder_stmt = $conn->prepare($allorder_sql);
             $allorder_stmt->bind_param("iiiid", $user_id, $order_id, $product_id, $qty, $product_price);
             
-            if ($allorder_stmt->execute()) {
-                $conn->commit();
-                echo json_encode(['status' => 'success', 'message' => 'Order placed successfully']);
-            } else {
+            if (!$allorder_stmt->execute()) {
                 throw new Exception('Failed to insert into allorder table');
             }
 
             $allorder_stmt->close();
             $price_stmt->close();
-        } else {
-            throw new Exception('Failed to insert into Orders table');
+            $stmt->close();
         }
 
-        $stmt->close();
+        $conn->commit();
+        echo json_encode(['status' => 'success', 'message' => 'Orders placed successfully']);
 
     } catch (Exception $e) {
         $conn->rollback();

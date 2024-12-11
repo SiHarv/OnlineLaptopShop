@@ -46,9 +46,9 @@
             </div>
         </div>
     </div>
-
-    <script src="../../assets/js/jquery.js"></script>
-    <script src="../../assets/js/bootstrap.js"></script>
-    <script src="../../assets/js/adminViewORDERS.js"></script>
 </body>
 </html>
+<script src="../../assets/js/jquery.js"></script>
+<script src="../../assets/js/bootstrap.js"></script>
+<script src="../../assets/js/adminViewORDERS.js"></script>
+    

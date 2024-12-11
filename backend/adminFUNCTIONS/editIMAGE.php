@@ -39,5 +39,4 @@ if(isset($_POST["product_id"])){
         echo $output;
     }
 }
-
 ?>

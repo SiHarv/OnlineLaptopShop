@@ -2,7 +2,7 @@
 include '../../config/database.php';
 
 function getLaptops($conn) {
-    $sql = "SELECT product_id, name, description, price, stock, image_url FROM Products";
+    $sql = "SELECT product_id, name, description,cpu, gpu, price, stock, image_url FROM Products";
     $result = $conn->query($sql);
     
     $laptops = array();

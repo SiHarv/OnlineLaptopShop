@@ -52,6 +52,10 @@ $(document).ready(function () {
                     $("#save").trigger("reset");
                     loadImage();
                     count();
+                    // Remove any lingering backdrops
+                    $('.modal-backdrop').remove();
+                    $('body').removeClass('modal-open');
+                    $('body').css('padding-right', '');
                 } else if (data == 2) {
                     alert("File is too large");
                 } else if (data == 3) {
@@ -100,6 +104,10 @@ $(document).ready(function () {
                     $("#update").trigger("reset");
                     loadImage();
                     count();
+                    // Remove any lingering backdrops
+                    $('.modal-backdrop').remove();
+                    $('body').removeClass('modal-open');
+                    $('body').css('padding-right', '');
                 } else if (data == 2) {
                     alert("File is too large");
                 } else if (data == 3) {
@@ -135,6 +143,10 @@ $(document).ready(function () {
                     alert("Deleted successfully");
                     loadImage();
                     count();
+                    // Remove any lingering backdrops
+                    $('.modal-backdrop').remove();
+                    $('body').removeClass('modal-open');
+                    $('body').css('padding-right', '');
                 } else {
                     alert("Something went wrong");
                 }
@@ -159,6 +171,43 @@ $(document).ready(function () {
             error: function(xhr, status, error) {
                 console.error("AJAX Error: ", status, error);
                 alert("Something went wrong: " + error);
+            }
+        });
+    });
+
+    // Edit button click handler
+    $(document).on('click', '.edit-btn', function() {
+        let product_id = $(this).data('id');
+        $.ajax({
+            url: "../../backend/adminFUNCTIONS/insertIMAGE.php",
+            type: "POST",
+            data: {product_id: product_id},
+            success: function(data) {
+                $("#edit-image").html(data);
+                $("#updateImage").modal('show');
+            }
+        });
+    });
+
+    // Delete button click handler
+    $(document).on('click', '.delete-btn', function() {
+        let product_id = $(this).data('id');
+        $("#delete_id").val(product_id);
+        $("#deleteConfirmModal").modal('show');
+    });
+
+    // Confirm delete handler
+    $("#confirmDelete").click(function() {
+        let product_id = $("#delete_id").val();
+        $.ajax({
+            url: "../../backend/adminFUNCTIONS/deleteIMAGE.php",
+            type: "POST",
+            data: {product_id: product_id},
+            success: function(data) {
+                if(data == 1) {
+                    $("#deleteConfirmModal").modal('hide');
+                    loadImage();
+                }
             }
         });
     });

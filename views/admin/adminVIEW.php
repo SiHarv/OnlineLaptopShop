@@ -45,6 +45,8 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Description</th>
+                                <th>CPU</th>
+                                <th>GPU</th>
                                 <th>Price</th>
                                 <th>Stock</th>
                                 <th>Image</th>
@@ -80,6 +82,14 @@
                                     <textarea name="description" id="description" class="form-control form-control-lg"></textarea>
                                 </div>
                                 <div class="form-group">
+                                    <label for="">CPU</label>
+                                    <input type="text" name="cpu" id="cpu" class="form-control form-control-lg">
+                                </div>
+                                <div class="form-group">
+                                    <label for="">GPU</label> 
+                                    <input type="text" name="gpu" id="gpu" class="form-control form-control-lg">
+                                </div>
+                                <div class="form-group">
                                     <label for="">Price</label>
                                     <input type="text" name="price" id="price" class="form-control form-control-lg">
                                 </div>
@@ -111,7 +121,7 @@
                         <!-- Modal Header -->
                         <div class="modal-header">
                             <h4 class="modal-title">Update Image</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;"></button>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
 
                         <!-- Modal body -->
@@ -134,7 +144,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title">Delete Confirmation</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;"></button>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <div class="modal-body">
                             <p>Are you sure you want to delete this item?</p>
