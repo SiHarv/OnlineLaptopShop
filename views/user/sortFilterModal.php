@@ -42,14 +42,17 @@
                     <label for="cpuFilter">Processor Type</label>
                     <select id="cpuFilter" class="form-control">
                         <option value="">All Processors</option>
-                        <option value="Intel i3">Intel Core i3</option>
-                        <option value="Intel i5">Intel Core i5</option>
-                        <option value="Intel i7">Intel Core i7</option>
+                        <option value="i3">Intel Core i3</option>
+                        <option value="i5">Intel Core i5</option>
+                        <option value="i7">Intel Core i7</option>
                         <option value="Intel i9">Intel Core i9</option>
-                        <option value="AMD Ryzen 3">AMD Ryzen 3</option>
-                        <option value="AMD Ryzen 5">AMD Ryzen 5</option>
-                        <option value="AMD Ryzen 7">AMD Ryzen 7</option>
-                        <option value="AMD Ryzen 9">AMD Ryzen 9</option>
+                        <option value="Ryzen 3">AMD Ryzen 3</option>
+                        <option value="Ryzen 5">AMD Ryzen 5</option>
+                        <option value="Ryzen 7">AMD Ryzen 7</option>
+                        <option value="Ryzen 9">AMD Ryzen 9</option>
+                        <option value="M1">Apple M1</option>
+                        <option value="M2">Apple M2</option>
+                        <option value="Elite">Snapdragon Elite</option>
                     </select>
                 </div>
 
