@@ -122,27 +122,33 @@ document.addEventListener('DOMContentLoaded', function() {
     function filterLaptops() {
         const searchTerm = document.getElementById('searchInput').value.toLowerCase();
         const priceFilter = document.getElementById('priceFilterModal').value;
+        const brandFilter = document.getElementById('brandFilter').value;
+        const cpuFilter = document.getElementById('cpuFilter').value;
+        const gpuFilter = document.getElementById('gpuFilter').value;
 
         let filtered = laptopsData;
 
-        // Apply search term filter
+        // Apply search filter
         if (searchTerm) {
             filtered = filtered.filter(laptop => {
-                const matchesSearch = laptop.name.toLowerCase().includes(searchTerm) ||
-                         laptop.description.toLowerCase().includes(searchTerm) ||
-                         laptop.cpu.toLowerCase().includes(searchTerm) ||
-                         laptop.gpu.toLowerCase().includes(searchTerm);
-
-                return matchesSearch;
+                return laptop.name.toLowerCase().includes(searchTerm) ||
+                       laptop.description.toLowerCase().includes(searchTerm) ||
+                       laptop.cpu.toLowerCase().includes(searchTerm) ||
+                       laptop.gpu.toLowerCase().includes(searchTerm);
             });
         }
 
-        // Apply price filter
-        if (priceFilter === 'low-to-high') {
-            filtered.sort((a, b) => a.price - b.price);
-        } else if (priceFilter === 'high-to-low') {
-            filtered.sort((a, b) => b.price - a.price);
-        }
+        // Apply brand filter
+        filtered = filterByBrand(filtered, brandFilter);
+
+        // Apply CPU filter
+        filtered = filterByCPU(filtered, cpuFilter);
+
+        // Apply GPU filter
+        filtered = filterByGPU(filtered, gpuFilter);
+
+        // Apply price sorting
+        filtered = sortByPrice(filtered, priceFilter);
 
         displayLaptops(filtered);
     }
@@ -150,11 +156,29 @@ document.addEventListener('DOMContentLoaded', function() {
     // Event listeners
     document.getElementById('searchInput').addEventListener('input', filterLaptops);
 
-    // Event listeners for modal inputs
-    document.getElementById('applyFilters').addEventListener('click', function() {
-        const priceFilter = document.getElementById('priceFilterModal').value;
-
+    // Remove applyFilters button listener
+    document.getElementById('priceFilterModal').addEventListener('change', () => {
         filterLaptops();
+        // Optional: Close modal after selection
+        // $('#sortFilterModal').modal('hide');
+    });
+    document.getElementById('brandFilter').addEventListener('change', filterLaptops);
+    document.getElementById('cpuFilter').addEventListener('change', filterLaptops);
+    document.getElementById('gpuFilter').addEventListener('change', filterLaptops);
+
+    // Clear filters
+    document.getElementById('clearFiltersBtn').addEventListener('click', function() {
+        // Reset all filters
+        document.getElementById('priceFilterModal').value = '';
+        document.getElementById('brandFilter').value = '';
+        document.getElementById('cpuFilter').value = '';
+        document.getElementById('gpuFilter').value = '';
+        document.getElementById('searchInput').value = '';
+        
+        // Reset display
+        displayLaptops(laptopsData);
+        
+        // Close modal
         $('#sortFilterModal').modal('hide');
     });
 
@@ -181,5 +205,48 @@ function addToCart(productId) {
     .catch(error => {
         console.error('Error adding to cart:', error);
         alert('Error adding item to cart');
+    });
+}
+
+// Add these filter functions after your existing code
+
+function filterByBrand(laptops, selectedBrand) {
+    if (!selectedBrand) return laptops;
+    return laptops.filter(laptop => laptop.name.toLowerCase().includes(selectedBrand.toLowerCase()));
+}
+
+function filterByCPU(laptops, selectedCPU) {
+    if (!selectedCPU) return laptops;
+    return laptops.filter(laptop => laptop.cpu.toLowerCase().includes(selectedCPU.toLowerCase()));
+}
+
+function filterByGPU(laptops, selectedGPU) {
+    if (!selectedGPU) return laptops;
+    return laptops.filter(laptop => {
+        const gpuLower = laptop.gpu.toLowerCase();
+        switch(selectedGPU.toLowerCase()) {
+            case 'rtx':
+                return gpuLower.includes('rtx');
+            case 'gtx':
+                return gpuLower.includes('gtx');
+            case 'intel iris':
+                return gpuLower.includes('intel') || gpuLower.includes('iris') || gpuLower.includes('uhd');
+            case 'amd':
+                return gpuLower.includes('amd') || gpuLower.includes('radeon');
+            default:
+                return true;
+        }
+    });
+}
+
+function sortByPrice(laptops, order) {
+    if (!order) return laptops;
+    return [...laptops].sort((a, b) => {
+        if (order === 'low-to-high') {
+            return a.price - b.price;
+        } else if (order === 'high-to-low') {
+            return b.price - a.price;
+        }
+        return 0;
     });
 }

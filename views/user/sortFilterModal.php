@@ -9,6 +9,8 @@
                 </button>
             </div>
             <div class="modal-body">
+                <!-- Sort Options -->
+                <h6 class="mb-3">Sort Options</h6>
                 <div class="form-group">
                     <label for="priceFilterModal">Sort by Price</label>
                     <select id="priceFilterModal" class="form-control">
@@ -17,10 +19,55 @@
                         <option value="high-to-low">Price: High to Low</option>
                     </select>
                 </div>
+
+                <!-- Filter Options -->
+                <h6 class="mt-4 mb-3">Filter Options</h6>
+                
+                <!-- Brand Filter -->
+                <div class="form-group">
+                    <label for="brandFilter">Laptop Brand</label>
+                    <select id="brandFilter" class="form-control">
+                        <option value="">All Brands</option>
+                        <option value="Lenovo">Lenovo</option>
+                        <option value="Asus">Asus</option>
+                        <option value="Acer">Acer</option>
+                        <option value="HP">HP</option>
+                        <option value="Dell">Dell</option>
+                        <option value="MSI">MSI</option>
+                    </select>
+                </div>
+
+                <!-- CPU Filter -->
+                <div class="form-group">
+                    <label for="cpuFilter">Processor Type</label>
+                    <select id="cpuFilter" class="form-control">
+                        <option value="">All Processors</option>
+                        <option value="Intel i3">Intel Core i3</option>
+                        <option value="Intel i5">Intel Core i5</option>
+                        <option value="Intel i7">Intel Core i7</option>
+                        <option value="Intel i9">Intel Core i9</option>
+                        <option value="AMD Ryzen 3">AMD Ryzen 3</option>
+                        <option value="AMD Ryzen 5">AMD Ryzen 5</option>
+                        <option value="AMD Ryzen 7">AMD Ryzen 7</option>
+                        <option value="AMD Ryzen 9">AMD Ryzen 9</option>
+                    </select>
+                </div>
+
+                <!-- GPU Filter -->
+                <div class="form-group">
+                    <label for="gpuFilter">Graphics Card</label>
+                    <select id="gpuFilter" class="form-control">
+                        <option value="">All Graphics Cards</option>
+                        <option value="RTX">NVIDIA RTX Series</option>
+                        <option value="GTX">NVIDIA GTX Series</option>
+                        <option value="Intel Iris">Intel Iris/UHD Graphics</option>
+                        <option value="AMD">AMD Radeon Graphics</option>
+                    </select>
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="applyFilters" data-dismiss="modal">Apply</button>
+                <button type="button" class="btn btn-secondary" id="clearFiltersBtn" data-dismiss="modal">Clear All</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
