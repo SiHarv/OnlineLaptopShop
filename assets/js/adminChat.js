@@ -1,4 +1,26 @@
 $(document).ready(function() {
+    let currentReceiverId = null;
+
+    // Add function to toggle chat interface
+    function toggleChatInterface(hasSelectedUser) {
+        if (hasSelectedUser) {
+            $('.no-user-selected').hide();
+            $('.message-form').show();
+        } else {
+            $('.no-user-selected').show();
+            $('.message-form').hide();
+            $('#chat-box').html(`
+                <div class="no-user-selected">
+                    <i class="fas fa-comments mb-3" style="font-size: 3em;"></i>
+                    <p>Select a user to start messaging</p>
+                </div>
+            `);
+        }
+    }
+
+    // Initialize with no user selected
+    toggleChatInterface(false);
+
     function fetchMessages(receiver_id) {
         // Store scroll info before refresh
         const chatBox = $('#chat-box');
@@ -56,6 +78,25 @@ $(document).ready(function() {
         });
     }
 
+    function fetchUsers() {
+        $.ajax({
+            url: '../../backend/adminFUNCTIONS/adminFetchUsers.php',
+            method: 'GET',
+            success: function(users) {
+                const userList = $('#user-list');
+                userList.empty();
+                
+                users.forEach(user => {
+                    userList.append(`
+                        <li class="user-item list-group-item" data-id="${user.user_id}">
+                            ${user.first_name} ${user.last_name}
+                        </li>
+                    `);
+                });
+            }
+        });
+    }
+
     $('#chat-form').submit(function(e) {
         e.preventDefault();
         const formData = new FormData(this);
@@ -86,20 +127,23 @@ $(document).ready(function() {
         }
     });
 
-    // Click handler for user selection
+    // Update user click handler
     $('#user-list').on('click', '.user-item', function() {
         const receiver_id = $(this).data('id');
+        currentReceiverId = receiver_id;
         const userName = $(this).text().trim();
         $('#receiver_id').val(receiver_id);
         $('#selected-user-name').text('with ' + userName).show();
+        toggleChatInterface(true);
         fetchMessages(receiver_id);
     });
 
     // Auto-refresh messages every 3 seconds if a user is selected
     setInterval(function() {
-        const receiver_id = $('#receiver_id').val();
-        if (receiver_id) {
-            fetchMessages(receiver_id);
+        if (currentReceiverId) {
+            fetchMessages(currentReceiverId);
         }
     }, 3000);
+
+    fetchUsers();
 });
