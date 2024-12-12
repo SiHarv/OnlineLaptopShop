@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Messages</title>
+    <title>Message Admin</title>
     <link rel="stylesheet" href="../../assets/css/bootstrap.css">
-    <link rel="stylesheet" href="../../assets/css/userSIDEBAR.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="../../assets/js/jquery.js"></script>
     <style>
         .wrapper {
@@ -23,26 +23,77 @@
         }
         .chat-box {
             flex: 1;
-            height: calc(100vh - 350px); /* Adjusted height */
+            height: calc(100vh - 250px); /* Adjusted height */
             overflow-y: auto;
-            padding: 15px;
+            padding: 10px;
             background: #f8f9fa;
             border: 1px solid #dee2e6;
             border-radius: 4px;
             margin-bottom: 10px; /* Added margin bottom */
         }
         .message-form {
-            margin-top: 10px;
+            position: relative;
+            margin-top: 15px;
             padding: 10px;
             background: #fff;
         }
         .conversation-header {
             padding: 10px 0;
         }
-        /* Reduce text area height */
+        .message-input-container {
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+        }
+        .attachment-btn {
+            position: absolute;
+            left: 10px;
+            bottom: 10px;
+            background: none;
+            border: none;
+            color: #6c757d;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .send-btn {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            background: none;
+            border: none;
+            color: #007bff;
+            cursor: pointer;
+        }
         #message_text {
+            padding: 10px 40px;
+            resize: none;
+            border-radius: 20px;
+            min-height: 50px;
             max-height: 100px;
-            min-height: 60px;
+        }
+        .file-preview {
+            display: none;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            position: relative;
+        }
+        .preview-image {
+            max-width: 80px;
+            max-height: 80px;
+            border-radius: 5px;
+        }
+        .remove-file {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: #dc3545;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 5px;
+            border-radius: 50%;
+            font-size: 12px;
         }
     </style>
 </head>
@@ -63,13 +114,20 @@
                         <div id="chat-box" class="chat-box"></div>
                         <form id="chat-form" class="message-form" enctype="multipart/form-data">
                             <input type="hidden" id="receiver_id" value="2">
-                            <div class="form-group">
-                                <textarea id="message_text" name="message_text" class="form-control" placeholder="Type your message..." rows="3"></textarea>
+                            <div class="message-input-container">
+                                <div id="file-preview" class="file-preview"></div>
+                                
+                                <input type="file" id="attachment" name="attachment" style="display: none;">
+                                <button type="button" class="attachment-btn" onclick="document.getElementById('attachment').click();">
+                                    <i class="fas fa-paperclip"></i>
+                                </button>
+                                
+                                <textarea id="message_text" name="message_text" class="form-control" placeholder="Type your message..."></textarea>
+                                
+                                <button type="submit" class="send-btn">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
                             </div>
-                            <div class="form-group mt-2">
-                                <input type="file" id="attachment" name="attachment" class="form-control">
-                            </div>
-                            <button type="submit" class="btn btn-primary mt-2">Send Message</button>
                         </form>
                     </div>
                 </div>

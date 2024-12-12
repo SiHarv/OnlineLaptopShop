@@ -22,7 +22,7 @@
             </a>
         <li class="nav-item"></li>
             <a class="nav-link" href="userMESSAGES.php">
-            <i class="fas fa-envelope"></i> Messages
+            <i class="fas fa-envelope"></i> Message Admin
             </a>
         </li>
         <li class="nav-item">

@@ -1,4 +1,39 @@
 $(document).ready(function() {
+    // Add file preview handler
+    document.getElementById('attachment').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        const preview = document.getElementById('file-preview');
+        
+        if (file) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                if (file.type.startsWith('image/')) {
+                    preview.innerHTML = `
+                        <div>
+                            <img src="${e.target.result}" class="preview-image">
+                            <i class="fas fa-times remove-file" onclick="removeFile()"></i>
+                        </div>`;
+                } else {
+                    preview.innerHTML = `
+                        <div>
+                            <i class="fas fa-file"></i> ${file.name}
+                            <i class="fas fa-times remove-file" onclick="removeFile()"></i>
+                        </div>`;
+                }
+                preview.style.display = 'block';
+            };
+            
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Add remove file function
+    window.removeFile = function() {
+        document.getElementById('attachment').value = '';
+        document.getElementById('file-preview').style.display = 'none';
+    };
+
     function fetchMessages() {
         // Store scroll info before refresh
         const chatBox = $('#chat-box');
@@ -70,6 +105,7 @@ $(document).ready(function() {
                 if (response.status === 'success') {
                     $('#message_text').val('');
                     $('#attachment').val('');
+                    $('#file-preview').hide();
                     fetchMessages();
                 }
             }

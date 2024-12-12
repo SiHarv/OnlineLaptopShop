@@ -112,6 +112,7 @@ $(document).ready(function() {
                 if (response.status === 'success') {
                     $('#message_text').val('');
                     $('#attachment').val('');
+                    $('#file-preview').hide();
                     fetchMessages(receiver_id);
                 }
             }
