@@ -1,6 +1,16 @@
 $(document).ready(function() {
     fetchOrders();
 
+    // Add event listener for the Export PDF button
+    $('#exportPdfBtn').on('click', function() {
+        exportTableToPDF();
+    });
+
+    // Select All Checkbox
+    $('#selectAll').on('change', function() {
+        $('input[type="checkbox"].order-checkbox').prop('checked', this.checked);
+    });
+
     function fetchOrders() {
         $.ajax({
             url: '../../backend/adminFUNCTIONS/fetchALLORDERS.php',
@@ -11,7 +21,8 @@ $(document).ready(function() {
                 data.forEach(function(order) {
                     tableBody += `
                         <tr>
-                            <td>${order.location}</td> <!-- Changed from order_id to location -->
+                            <td><input type="checkbox" class="order-checkbox" data-order-id="${order.order_id}"></td>
+                            <td>${order.location}</td>
                             <td>${order.username}</td>
                             <td>${order.product_name}</td>
                             <td>${order.quantity}</td>
@@ -52,12 +63,12 @@ $(document).ready(function() {
                 $('.message-btn').on('click', function() {
                     const email = $(this).data('email');
                     const orderId = $(this).data('orderid');
-                    const product = $(this).closest('tr').find('td:nth-child(3)').text();
-                    const quantity = $(this).closest('tr').find('td:nth-child(4)').text();
-                    const unitPrice = $(this).closest('tr').find('td:nth-child(5)').text();
-                    const totalPrice = $(this).closest('tr').find('td:nth-child(6)').text();
-                    const paymentMethod = $(this).closest('tr').find('td:nth-child(7)').text();
-                    const carrier = $(this).closest('tr').find('td:nth-child(9)').text();
+                    const product = $(this).closest('tr').find('td:nth-child(4)').text();
+                    const quantity = $(this).closest('tr').find('td:nth-child(5)').text();
+                    const unitPrice = $(this).closest('tr').find('td:nth-child(6)').text();
+                    const totalPrice = $(this).closest('tr').find('td:nth-child(7)').text();
+                    const paymentMethod = $(this).closest('tr').find('td:nth-child(8)').text();
+                    const carrier = $(this).closest('tr').find('td:nth-child(10)').text();
                     
                     $('#recipient_email').val(email);
                     $('#order_id').val(orderId);
@@ -105,6 +116,35 @@ $(document).ready(function() {
                 console.error('Error updating status:', error);
                 alert('Error updating order status. Please try again.');
             }
+        });
+    }
+
+    function exportTableToPDF() {
+        const selectedRows = Array.from(document.querySelectorAll('.order-checkbox:checked')).map(checkbox => {
+            return checkbox.closest('tr');
+        });
+
+        const data = selectedRows.map(row => {
+            return Array.from(row.querySelectorAll('th, td')).map((cell, index) => {
+                // Exclude the last column (Message)
+                if (index < row.children.length - 1) {
+                    return cell.textContent;
+                }
+            }).filter(cell => cell !== undefined);
+        });
+
+        $.ajax({
+            url: '../../backend/adminFUNCTIONS/exportPDF.php',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ data: data }),
+            success: function(response) {
+                const link = document.createElement('a');
+                link.href = 'data:application/pdf;base64,' + response;
+                link.download = 'orders.pdf';
+                link.click();
+            },
+            
         });
     }
 

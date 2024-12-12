@@ -23,11 +23,13 @@
             
             <div class="container-fluid mt-4">
                 <h2>All Orders</h2>
+                <button id="exportPdfBtn" class="btn btn-danger mb-3">Export PDF</button>
                 <div class="table-responsive">
                     <table class="table table-striped table-hover">
                         <thead class="table-dark">
                             <tr>
-                                <th>Location</th> <!-- Changed from Order ID to Location -->
+                                <th><input type="checkbox" id="selectAll"></th> <!-- Select All Checkbox -->
+                                <th>Location</th>
                                 <th>Customer</th>
                                 <th>Product</th>
                                 <th>Quantity</th>
