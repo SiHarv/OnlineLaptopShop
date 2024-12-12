@@ -27,10 +27,10 @@
                 <div class="form-group mt-3" id="carrier-group" style="display: none;">
                     <label for="carrier"><i class=""></i>Carrier</label>
                     <select class="form-control" id="carrier">
-                        <option value="LBC">--</option>
+                        <option value="--">--</option>
                         <option value="LBC">LBC</option>
                         <option value="Lalamove">Lalamove</option>
-                        <option value="J&T">J&T</option>
+                        <option value="J and T">J&T</option>
                         <option value="Ninja Express">Ninja Express</option>
                         <option value="Food Panda">Food Panda</option>
                         <option value="Private Driver">Private Driver</option>

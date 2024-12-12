@@ -11,7 +11,7 @@ $(document).ready(function() {
                 data.forEach(function(order) {
                     tableBody += `
                         <tr>
-                            <td>#${order.order_id}</td>
+                            <td>${order.location}</td> <!-- Changed from order_id to location -->
                             <td>${order.username}</td>
                             <td>${order.product_name}</td>
                             <td>${order.quantity}</td>
@@ -48,7 +48,6 @@ $(document).ready(function() {
                     updateOrderStatus(orderId, newStatus);
                 });
 
-
                 // Add click event listener to message buttons
                 $('.message-btn').on('click', function() {
                     const email = $(this).data('email');
@@ -59,7 +58,6 @@ $(document).ready(function() {
                     const totalPrice = $(this).closest('tr').find('td:nth-child(6)').text();
                     const paymentMethod = $(this).closest('tr').find('td:nth-child(7)').text();
                     const carrier = $(this).closest('tr').find('td:nth-child(9)').text();
-                    
                     
                     $('#recipient_email').val(email);
                     $('#order_id').val(orderId);
@@ -77,7 +75,6 @@ $(document).ready(function() {
                     $('#display_totalPrice').text(totalPrice);
                     $('#display_paymentMethod').text(paymentMethod);
                     $('#display_carrier').text(carrier);
-
                 });
             },
             error: function(xhr, status, error) {

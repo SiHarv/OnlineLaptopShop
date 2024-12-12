@@ -27,7 +27,7 @@
                     <table class="table table-striped table-hover">
                         <thead class="table-dark">
                             <tr>
-                                <th>Order ID</th>
+                                <th>Location</th> <!-- Changed from Order ID to Location -->
                                 <th>Customer</th>
                                 <th>Product</th>
                                 <th>Quantity</th>
@@ -51,4 +51,3 @@
 <script src="../../assets/js/jquery.js"></script>
 <script src="../../assets/js/bootstrap.js"></script>
 <script src="../../assets/js/adminViewORDERS.js"></script>
-    
