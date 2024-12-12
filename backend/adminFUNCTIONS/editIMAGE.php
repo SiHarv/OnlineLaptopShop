@@ -21,6 +21,14 @@ if(isset($_POST["product_id"])){
                 <textarea name='description' id='edit_description' class='form-control form-control-lg'>{$row["description"]}</textarea>
             </div>
             <div class='form-group'>
+                <label for=''>CPU</label>
+                <input type='text' value='{$row["cpu"]}' name='cpu' id='edit_cpu' class='form-control form-control-lg'>
+            </div>
+            <div class='form-group'>
+                <label for=''>GPU</label>
+                <input type='text' value='{$row["gpu"]}' name='gpu' id='edit_gpu' class='form-control form-control-lg'>
+            </div>
+            <div class='form-group'>
                 <label for=''>Price</label>
                 <input type='text' value='{$row["price"]}' name='price' id='edit_price' class='form-control form-control-lg'>
             </div>

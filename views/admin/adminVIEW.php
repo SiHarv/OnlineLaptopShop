@@ -125,7 +125,7 @@
                         </div>
 
                         <!-- Modal body -->
-                        <form action="" id="update">
+                        <form action="" id="update" enctype="multipart/form-data">
                             <div id="edit-image"></div>
 
                             <!-- Modal footer -->

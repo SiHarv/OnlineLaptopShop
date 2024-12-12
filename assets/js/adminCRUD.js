@@ -71,7 +71,8 @@ $(document).ready(function () {
         })
     });
 
-    $(document).on("click", '#edit-images', function () {
+    // Edit button click handler
+    $(document).on("click", ".edit-btn", function () {  // Changed from #edit-images to .edit-btn
         const id = $(this).data("id");
         $.ajax({
             url: "../../backend/adminFUNCTIONS/editIMAGE.php",
@@ -85,12 +86,20 @@ $(document).ready(function () {
                 console.error("AJAX Error: ", status, error);
                 alert("Something went wrong: " + error);
             }
-        })
+        });
     });
 
+    // Update form submission
     $("#update").on("submit", function (e) {
         e.preventDefault();
         const formData = new FormData(this);
+        
+        // Debug
+        console.log('FormData contents:');
+        for (let pair of formData.entries()) {
+            console.log(pair[0] + ': ' + pair[1]);
+        }
+
         $.ajax({
             url: "../../backend/adminFUNCTIONS/updateIMAGE.php",
             type: "POST",
@@ -104,21 +113,19 @@ $(document).ready(function () {
                     $("#update").trigger("reset");
                     loadImage();
                     count();
-                    // Remove any lingering backdrops
                     $('.modal-backdrop').remove();
                     $('body').removeClass('modal-open');
-                    $('body').css('padding-right', '');
                 } else if (data == 2) {
                     alert("File is too large");
                 } else if (data == 3) {
                     alert("Invalid image extension");
                 } else {
+                    console.log("Server response:", data);
                     alert("Something went wrong");
                 }
             },
             error: (xhr, status, error) => {
-                console.error("AJAX Error: ", status, error);
-                alert("Something went wrong: " + error);
+                console.error("AJAX Error:", error);
             }
         })
     });
@@ -171,20 +178,6 @@ $(document).ready(function () {
             error: function(xhr, status, error) {
                 console.error("AJAX Error: ", status, error);
                 alert("Something went wrong: " + error);
-            }
-        });
-    });
-
-    // Edit button click handler
-    $(document).on('click', '.edit-btn', function() {
-        let product_id = $(this).data('id');
-        $.ajax({
-            url: "../../backend/adminFUNCTIONS/insertIMAGE.php",
-            type: "POST",
-            data: {product_id: product_id},
-            success: function(data) {
-                $("#edit-image").html(data);
-                $("#updateImage").modal('show');
             }
         });
     });
