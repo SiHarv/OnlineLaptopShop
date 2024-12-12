@@ -20,6 +20,11 @@
             <a class="nav-link" href="userOrderHISTORY.php">
                 <i class="fas fa-history"></i> Order History
             </a>
+        <li class="nav-item"></li>
+            <a class="nav-link" href="userMESSAGES.php">
+            <i class="fas fa-envelope"></i> Messages
+            </a>
+        </li>
         <li class="nav-item">
             <a class="nav-link" href="userPROFILE.php">
             <i class="fas fa-user"></i> Profile

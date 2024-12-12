@@ -12,6 +12,11 @@
                 <i class="fas fa-tachometer-alt"></i> Dashboard
             </a>
         </li>
+        <li class="nav-item"></li>
+            <a class="nav-link" href="adminMESSAGES.php">
+                <i class="fas fa-envelope"></i> Messages
+            </a>
+        </li>
         <li class="nav-item">
             <a class="nav-link" href="adminViewORDERS.php">
                 <i class="fas fa-box"></i> Orders
