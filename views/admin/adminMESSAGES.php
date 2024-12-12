@@ -55,10 +55,14 @@
                     <h4>Conversation <span id="selected-user-name"></span></h4>
                 </div>
                 <div id="chat-box" class="chat-box"></div>
-                <form id="chat-form" class="message-form">
-                    <input type="hidden" id="receiver_id">
+                <!-- Update form to include file input -->
+                <form id="chat-form" class="message-form" enctype="multipart/form-data">
+                    <input type="hidden" id="receiver_id" name="receiver_id">
                     <div class="form-group">
-                        <textarea id="message_text" class="form-control" placeholder="Type your message..." rows="3"></textarea>
+                        <textarea id="message_text" name="message_text" class="form-control" placeholder="Type your message..." rows="3"></textarea>
+                    </div>
+                    <div class="form-group mt-2">
+                        <input type="file" id="attachment" name="attachment" class="form-control">
                     </div>
                     <button type="submit" class="btn btn-primary mt-2">Send Message</button>
                 </form>

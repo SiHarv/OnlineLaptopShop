@@ -41,11 +41,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $receiver_id = mysqli_real_escape_string($conn, $_POST['receiver_id']);
     $message_text = mysqli_real_escape_string($conn, $_POST['message_text']);
-    
-    $sql = "INSERT INTO messages (sender_id, receiver_id, message_text) VALUES (?, ?, ?)";
+    $attachment_link = null;
+
+    // Add file upload handling
+    if (isset($_FILES['attachment'])) {
+        $file = $_FILES['attachment'];
+        $fileName = time() . '_' . $file['name'];
+        $uploadPath = '../../uploads/messagingAttachments/';
+        
+        if (!file_exists($uploadPath)) {
+            mkdir($uploadPath, 0777, true);
+        }
+        
+        if (move_uploaded_file($file['tmp_name'], $uploadPath . $fileName)) {
+            $attachment_link = 'uploads/messagingAttachments/' . $fileName;
+        }
+    }
+
+    $sql = "INSERT INTO messages (sender_id, receiver_id, message_text, attachment_link) VALUES (?, ?, ?, ?)";
     
     $stmt = mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt, "iis", $admin_id, $receiver_id, $message_text);
+    mysqli_stmt_bind_param($stmt, "iiss", $admin_id, $receiver_id, $message_text, $attachment_link);
     
     if (mysqli_stmt_execute($stmt)) {
         echo json_encode(['status' => 'success']);

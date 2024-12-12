@@ -61,10 +61,13 @@
                 <div class="row chat-container">
                     <div class="col-md-12">
                         <div id="chat-box" class="chat-box"></div>
-                        <form id="chat-form" class="message-form">
+                        <form id="chat-form" class="message-form" enctype="multipart/form-data">
                             <input type="hidden" id="receiver_id" value="2">
                             <div class="form-group">
-                                <textarea id="message_text" class="form-control" placeholder="Type your message..." rows="3"></textarea>
+                                <textarea id="message_text" name="message_text" class="form-control" placeholder="Type your message..." rows="3"></textarea>
+                            </div>
+                            <div class="form-group mt-2">
+                                <input type="file" id="attachment" name="attachment" class="form-control">
                             </div>
                             <button type="submit" class="btn btn-primary mt-2">Send Message</button>
                         </form>
