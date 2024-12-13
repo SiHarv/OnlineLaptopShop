@@ -43,6 +43,20 @@ $(document).ready(function() {
         document.getElementById('file-preview').style.display = 'none';
     };
 
+    function markMessagesAsRead() {
+        $.ajax({
+            url: '../../backend/userFUNCTIONS/userFetchMessages.php',
+            method: 'POST',
+            data: { mark_read: true, sender_id: 2 },
+            success: function(response) {
+                // Refresh unread badge in sidebar
+                if (typeof checkUnreadMessages === 'function') {
+                    checkUnreadMessages();
+                }
+            }
+        });
+    }
+
     function fetchMessages() {
         // Store scroll info before refresh
         const chatBox = $('#chat-box');
@@ -95,6 +109,9 @@ $(document).ready(function() {
                 if (wasAtBottom) {
                     chatBox.scrollTop(chatBox[0].scrollHeight);
                 }
+
+                // Mark messages as read after loading them
+                markMessagesAsRead();
             }
         });
     }
@@ -142,6 +159,9 @@ $(document).ready(function() {
         }
     });
 
+    // Initial load
     fetchMessages();
+    markMessagesAsRead();
+    
     setInterval(fetchMessages, 3000);
 });

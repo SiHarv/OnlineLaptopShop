@@ -62,7 +62,7 @@ if (!isset($_SESSION['user_id'])) {
     <script src="../../assets/js/bootstrap.js"></script>
     <script src="https://kit.fontawesome.com/your-code.js"></script>
     <script src="../../assets/js/displayLAPTOPS.js"></script>
-    <script src="../../assets/js/sidebar.js"></script>
+    <script src="../../assets/js/userSidebar.js"></script>
 
 </body>
 </html>

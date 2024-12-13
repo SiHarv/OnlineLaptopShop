@@ -100,19 +100,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
 // Fetch messages with user info
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (isset($_GET['get_unread'])) {
-        $sql = "SELECT u.user_id, u.first_name, u.last_name, 
-                COUNT(CASE WHEN m.is_read = 0 AND m.receiver_id = ? THEN 1 END) as unread_count
-                FROM users u
-                LEFT JOIN messages m ON u.user_id = m.sender_id
-                WHERE u.is_admin = 0
-                GROUP BY u.user_id";
+        try {
+            ob_clean();
+            
+            // Test direct query first
+            $direct_query = mysqli_query($conn, "SELECT COUNT(*) as unread FROM messages WHERE receiver_id = 2 AND sender_id != 2 AND is_read = 0");
+            $direct_result = mysqli_fetch_assoc($direct_query);
+            
+            // Log raw results
+            error_log("Direct query result: " . print_r($direct_result, true));
+            
+            // Return raw count from direct query
+            echo json_encode([
+                'admin Sidebar unread_count' => (int)$direct_result['unread'],
+                'debug' => [
+                    'raw_count' => $direct_result['unread'],
+                    'query' => "SELECT COUNT(*) as unread FROM messages WHERE receiver_id = 2 AND sender_id != 2 AND is_read = 0"
+                ]
+            ]);
+            
+        } catch (Exception $e) {
+            error_log("Error: " . $e->getMessage());
+            echo json_encode(['error' => $e->getMessage()]);
+        }
+        exit;
+    }
+
+    if (isset($_GET['check_unread'])) {
+        $sql = "SELECT COUNT(*) as unread 
+                FROM messages 
+                WHERE receiver_id = ? 
+                AND is_read = 0";
         
         $stmt = mysqli_prepare($conn, $sql);
         mysqli_stmt_bind_param($stmt, "i", $admin_id);
         mysqli_stmt_execute($stmt);
         $result = mysqli_stmt_get_result($stmt);
-        $users = mysqli_fetch_all($result, MYSQLI_ASSOC);
-        echo json_encode($users);
+        $unread = mysqli_fetch_assoc($result);
+        
+        ob_clean();
+        echo json_encode(['unread_count' => (int)$unread['unread']]);
         exit;
     }
 
