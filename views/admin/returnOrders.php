@@ -41,7 +41,8 @@ if (!isset($_SESSION['admin_id'])) {
                                         <th>Reason</th>
                                         <th>Image</th>
                                         <th>Status</th>
-                                        <th>Actions</th>
+                                        <th>Location</th>
+                                        <th>Carrier</th>
                                     </tr>
                                 </thead>
                                 <tbody id="returnOrdersTable">

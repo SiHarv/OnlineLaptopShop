@@ -12,19 +12,16 @@ $(document).ready(function() {
                                 <td>${ret.username}</td>
                                 <td>${ret.product_name}</td>
                                 <td>${ret.reason}</td>
-                                <td><img src="../../${ret.image_path}" width="50" height="50"></td>
+                                <td><img src="../../uploads/returns/${ret.image_path}" width="50" height="50"></td>
                                 <td>
-                                    <select class="form-select status-select" data-return-id="${ret.return_id}">
-                                        <option value="Pending" ${ret.status === 'Pending' ? 'selected' : ''}>Pending</option>
-                                        <option value="Approved" ${ret.status === 'Approved' ? 'selected' : ''}>Approved</option>
-                                        <option value="Rejected" ${ret.status === 'Rejected' ? 'selected' : ''}>Rejected</option>
+                                    <select class="form-select status-select ${ret.status.toLowerCase()}-status" data-return-id="${ret.return_id}">
+                                        <option value="Pending" class="bg-warning text-dark" ${ret.status === 'Pending' ? 'selected' : ''}>Pending</option>
+                                        <option value="Approved" class="bg-success text-white" ${ret.status === 'Approved' ? 'selected' : ''}>Approved</option>
+                                        <option value="Rejected" class="bg-danger text-white" ${ret.status === 'Rejected' ? 'selected' : ''}>Rejected</option>
                                     </select>
                                 </td>
-                                <td>
-                                    <button class="btn btn-primary btn-sm view-btn" data-id="${ret.return_id}">
-                                        View Details
-                                    </button>
-                                </td>
+                                <td>${ret.location}</td>
+                                <td>${ret.carrier}</td>
                             </tr>
                         `;
                     });

@@ -40,7 +40,7 @@ $(document).ready(function() {
                                     <option value="Pending" ${order.status === 'Pending' ? 'selected' : ''}>Pending</option>
                                     <option value="Out for Delivery" ${order.status === 'Out for Delivery' ? 'selected' : ''}>Out for Delivery</option>
                                     <option value="Complete" ${order.status === 'Complete' ? 'selected' : ''}>Complete</option>
-                                    <option value="Returned" ${order.status === 'Returned' ? 'selected' : ''}>Complete</option>
+                                    <option value="Returned" ${order.status === 'Returned' ? 'selected' : ''}>Returned</option>
                                     <option value="Canceled" ${order.status === 'Canceled' ? 'selected' : ''}>Canceled</option>
                                 </select>
                             </td>
