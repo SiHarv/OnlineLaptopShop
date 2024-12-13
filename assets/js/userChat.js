@@ -3,7 +3,7 @@ $(document).ready(function() {
     $('#chat-box').after(`
         <div id="message-loader" style="display:none;" class="text-center">
             <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading...</span>
+                <span class="visually-hidden">--</span>
             </div>
         </div>
     `);
