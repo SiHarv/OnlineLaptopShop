@@ -18,6 +18,11 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="returnOrders.php">
+            <i class="fas fa-undo"></i> Return Orders
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutConfirmModal">
             <i class="fas fa-sign-out-alt"></i> Logout
             </a>

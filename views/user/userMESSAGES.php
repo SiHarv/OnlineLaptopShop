@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header('Location: ../loginPAGE.php');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +13,10 @@
     <title>Message Admin</title>
     <link rel="stylesheet" href="../../assets/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Add these scripts -->
     <script src="../../assets/js/jquery.js"></script>
+    <script src="../../assets/js/bootstrap.js"></script>
+    <script src="../../assets/js/productReturn.js"></script>
     <style>
         .wrapper {
             display: flex;
@@ -106,12 +116,20 @@
             <!-- Header -->
             <?php include 'userHEADER.php'; ?>
             
+            <!-- Return Modal -->
+            <?php include 'productReturnModal.php'; ?>
             <!-- Chat Content -->
             <div class="container-fluid p-4">
                 <h2>Message Admin</h2>
                 <div class="row chat-container">
                     <div class="col-md-12">
                         <div id="chat-box" class="chat-box"></div>
+                        
+                        <!-- Return Button -->
+                        <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#returnModal">
+                            Return Product
+                        </button>
+
                         <form id="chat-form" class="message-form" enctype="multipart/form-data">
                             <input type="hidden" id="receiver_id" value="2">
                             <div class="message-input-container">
@@ -134,11 +152,11 @@
             </div>
         </div>
     </div>
-
     <script src="../../assets/js/bootstrap.bundle.min.js"></script>
     <script>
         window.userId = <?php echo $_SESSION['user_id']; ?>;
     </script>
     <script src="../../assets/js/userChat.js"></script>
+    <script src="../../assets/js/productReturn.js"></script>
 </body>
 </html>
