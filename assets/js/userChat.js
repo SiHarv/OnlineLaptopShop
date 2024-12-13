@@ -1,4 +1,13 @@
 $(document).ready(function() {
+    // Add loader HTML after the chat-box
+    $('#chat-box').after(`
+        <div id="message-loader" style="display:none;" class="text-center">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    `);
+
     // Add file preview handler
     document.getElementById('attachment').addEventListener('change', function(e) {
         const file = e.target.files[0];
@@ -95,6 +104,10 @@ $(document).ready(function() {
         const formData = new FormData(this);
         formData.append('receiver_id', 2);
         
+        // Show loader
+        $('#message-loader').show();
+        $('#chat-form button[type="submit"]').prop('disabled', true);
+        
         $.ajax({
             url: '../../backend/userFUNCTIONS/userFetchMessages.php',
             method: 'POST',
@@ -108,6 +121,14 @@ $(document).ready(function() {
                     $('#file-preview').hide();
                     fetchMessages();
                 }
+            },
+            error: function() {
+                alert('Error sending message');
+            },
+            complete: function() {
+                // Hide loader and enable submit button
+                $('#message-loader').hide();
+                $('#chat-form button[type="submit"]').prop('disabled', false);
             }
         });
     });

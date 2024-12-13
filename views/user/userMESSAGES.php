@@ -33,7 +33,7 @@ if (!isset($_SESSION['user_id'])) {
         }
         .chat-box {
             flex: 1;
-            height: calc(100vh - 250px); /* Adjusted height */
+            height: calc(100vh - 320px); /* Adjusted height */
             overflow-y: auto;
             padding: 10px;
             background: #f8f9fa;
@@ -104,6 +104,13 @@ if (!isset($_SESSION['user_id'])) {
             padding: 5px;
             border-radius: 50%;
             font-size: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .chat-box {
+                height: calc(100vh - 400px);  /* Adjusted for mobile height */
+                overflow-y: auto;
+            }
         }
     </style>
 </head>
