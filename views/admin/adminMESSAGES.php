@@ -30,6 +30,7 @@
             cursor: pointer;
             padding: 18px 10px;
             border-bottom: 1px solid #dee2e6;
+            position: relative;
         }
         .user-item:hover {
             background-color: #f8f9fa;
@@ -127,6 +128,13 @@
             color: #6c757d;
             font-size: 1.2em;
         }
+        .badge {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 0.7em;
+            padding: 0.4em 0.6em;
+        }
     </style>
 </head>
 <body>
@@ -211,7 +219,6 @@
                             const userName = `${user.first_name} ${user.last_name} (${user.username})`;
                             $('#user-list').append(`
                                 <li class="list-group-item user-item" data-id="${user.user_id}">
-                                    ${userName}
                                 </li>
                             `);
                         });

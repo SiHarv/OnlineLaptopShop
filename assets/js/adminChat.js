@@ -90,15 +90,23 @@ $(document).ready(function() {
                 response.users.forEach(user => {
                     const unreadIndicator = user.unread_count > 0 ? 
                         `<span class="badge bg-danger position-absolute top-0 end-0 translate-middle">
-                            <span class="visually-hidden">New messages</span>
+                            <span class="visually-hidden">New message</span>
                         </span>` : '';
                     
                     userList.append(`
-                        <li class="list-group-item user-item position-relative" data-id="${user.user_id}">
+                        <li class="list-group-item user-item position-relative" 
+                            data-id="${user.user_id}"
+                            data-name="${user.first_name} ${user.last_name}">
                             ${user.first_name} ${user.last_name}
                             ${unreadIndicator}
                         </li>
                     `);
+                });
+
+                // Add click handler for user selection
+                $('.user-item').click(function() {
+                    const userName = $(this).data('name');
+                    $('#selected-user-name').text(': ' + userName);
                 });
             }
         });
@@ -146,9 +154,9 @@ $(document).ready(function() {
         
         const receiver_id = $(this).data('id');
         currentReceiverId = receiver_id;
-        const userName = $(this).text().trim();
+        /* const userName = $(this).text().trim(); */
         $('#receiver_id').val(receiver_id);
-        $('#selected-user-name').text('with ' + userName).show();
+        /* $('#selected-user-name').text('with ' + userName).show(); */
         toggleChatInterface(true);
         fetchMessages(receiver_id);
     });
@@ -159,7 +167,7 @@ $(document).ready(function() {
         if (currentReceiverId) {
             fetchMessages(currentReceiverId);
         }
-    }, 3000);
+    }, 1000);
 
     loadUsersList();
 });

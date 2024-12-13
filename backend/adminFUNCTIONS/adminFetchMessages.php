@@ -15,7 +15,6 @@ $admin_id = $_SESSION['user_id'];
 if (isset($_GET['users'])) {
     $sql = "SELECT 
             u.user_id, 
-            u.username,
             u.first_name,
             u.last_name,
             (SELECT COUNT(*) FROM messages 
