@@ -101,17 +101,35 @@ $(document).ready(function() {
                             return;
                         }
                         if(response.status === 'success') {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Success!',
-                                text: 'Return request submitted successfully',
-                                confirmButtonColor: '#3085d6'
-                            }).then(() => {
-                                $('#returnModal').modal('hide');
-                                $('#returnForm')[0].reset();
-                                $('.modal-backdrop').remove();
-                                $('body').removeClass('modal-open');
-                                $('body').css('padding-right', '');
+                            const product = $('#orderSelect option:selected').text().trim();
+                            const reason = $('#returnReason').val().trim();
+                            const messageText = `Return Request Details: Product: ${product} | Reason: ${reason}`;
+
+                            const formData = new FormData();
+                            formData.append('receiver_id', 2);
+                            formData.append('message_text', messageText);
+                            formData.append('attachment', $('#returnFile')[0].files[0]);
+
+                            $.ajax({
+                                url: '../../backend/userFUNCTIONS/userFetchMessages.php',
+                                type: 'POST',
+                                data: formData,
+                                processData: false,
+                                contentType: false,
+                                success: function(messageResponse) {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Success!',
+                                        text: 'Return request submitted successfully',
+                                        confirmButtonColor: '#3085d6'
+                                    }).then(() => {
+                                        $('#returnModal').modal('hide');
+                                        $('#returnForm')[0].reset();
+                                        $('.modal-backdrop').remove();
+                                        $('body').removeClass('modal-open');
+                                        $('body').css('padding-right', '');
+                                    });
+                                }
                             });
                         }
                     },

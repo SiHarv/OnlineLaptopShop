@@ -33,13 +33,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $order_status = '';
         switch($status) {
             case 'Approved':
-                $order_status = 'Return Approved';
+                $order_status = 'For Returned';
                 break;
             case 'Rejected':
-                $order_status = 'Return Rejected';
+                $order_status = 'Complete';
                 break;
             case 'Pending':
-                $order_status = 'Return Pending';
+                $order_status = 'Pending';
                 break;
         }
         

@@ -31,9 +31,8 @@ $html = '
 foreach ($data['data'] as $row) {
     $html .= '<tr>';
     foreach ($row as $index => $cell) {
-        // Format peso amount for the Total Amount column (index 2)
-        if ($index == 2) {
-            $html .= '<td style="padding: 8px;">₱' . htmlspecialchars($cell) . '</td>';
+        if ($index == 3 || $index == 4) { // Price and Total Price columns
+            $html .= '<td style="padding: 8px;">' . htmlspecialchars($cell) . '</td>';
         } else {
             $html .= '<td style="padding: 8px;">' . htmlspecialchars($cell) . '</td>';
         }
