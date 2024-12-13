@@ -44,6 +44,7 @@ $(document).ready(function() {
             success: function(response) {
                 try {
                     const messageBadge = $('.user-message-badge');
+                    const mobileBadge = $('.mobile-message-badge');
                     console.log('Raw response:', response);
                     
                     if (typeof response === 'string') {
@@ -56,8 +57,10 @@ $(document).ready(function() {
                     if (response.unread_count > 0) {
                         console.log('Unread messages:', response.unread_count);
                         messageBadge.show();
+                        mobileBadge.show();
                     } else {
                         messageBadge.hide();
+                        mobileBadge.hide();
                     }
                 } catch (e) {
                     console.error('Error parsing response:', e);
@@ -75,5 +78,5 @@ $(document).ready(function() {
 
     // Initialize message checking
     checkUnreadMessages();
-    setInterval(checkUnreadMessages, 3000);
+    setInterval(checkUnreadMessages, 2000);
 });
