@@ -9,6 +9,12 @@ $(document).ready(function() {
     // Select All Checkbox
     $('#selectAll').on('change', function() {
         $('input[type="checkbox"].order-checkbox').prop('checked', this.checked);
+        calculateSelectedTotal();
+    });
+
+    // Individual checkbox handler
+    $(document).on('change', '.order-checkbox', function() {
+        calculateSelectedTotal();
     });
 
     function fetchOrders() {
@@ -34,7 +40,7 @@ $(document).ready(function() {
                                     <option value="Pending" ${order.status === 'Pending' ? 'selected' : ''}>Pending</option>
                                     <option value="Out for Delivery" ${order.status === 'Out for Delivery' ? 'selected' : ''}>Out for Delivery</option>
                                     <option value="Complete" ${order.status === 'Complete' ? 'selected' : ''}>Complete</option>
-                                    <option value="Complete" ${order.status === 'Returned' ? 'Returned' : ''}>Complete</option>
+                                    <option value="Returned" ${order.status === 'Returned' ? 'selected' : ''}>Complete</option>
                                     <option value="Canceled" ${order.status === 'Canceled' ? 'selected' : ''}>Canceled</option>
                                 </select>
                             </td>
@@ -88,6 +94,8 @@ $(document).ready(function() {
                     $('#display_paymentMethod').text(paymentMethod);
                     $('#display_carrier').text(carrier);
                 });
+                calculateTotalSums(); // Add this line after table is populated
+                calculateSelectedTotal(); // Reset selected total when table refreshes
             },
             error: function(xhr, status, error) {
                 console.error('Error fetching orders:', error);
@@ -126,12 +134,17 @@ $(document).ready(function() {
         });
 
         const data = selectedRows.map(row => {
-            return Array.from(row.querySelectorAll('th, td')).map((cell, index) => {
-                // Exclude the last column (Message)
-                if (index < row.children.length - 1) {
-                    return cell.textContent;
-                }
-            }).filter(cell => cell !== undefined);
+            const cells = Array.from(row.querySelectorAll('td'));
+            const statusSelect = cells[8].querySelector('select');
+            return [
+                cells[1].textContent.trim(),  // Location
+                cells[2].textContent.trim(),  // Customer
+                cells[4].textContent.trim(),  // Quantity
+                cells[5].textContent.trim(),  // Price
+                cells[6].textContent.trim(),  // Total Price
+                cells[7].textContent.trim(),  // Mode of Transaction
+                statusSelect.options[statusSelect.selectedIndex].text  // Current Status
+            ];
         });
 
         $.ajax({
@@ -144,9 +157,58 @@ $(document).ready(function() {
                 link.href = 'data:application/pdf;base64,' + response;
                 link.download = 'orders.pdf';
                 link.click();
-            },
-            
+            }
         });
+    }
+
+    function calculateTotalSums() {
+        let totalSum = 0;
+        let completedSum = 0;
+        
+        $('#ordersTableBody tr').each(function() {
+            const amount = parseFloat($(this).find('td:nth-child(7)').text().replace('₱', '').replace(/,/g, ''));
+            const status = $(this).find('td:nth-child(9) select').val();
+            
+            if (!isNaN(amount)) {
+                totalSum += amount;
+                
+                // Add to completedSum if status is "Complete"
+                if (status === 'Complete') {
+                    completedSum += amount;
+                }
+            }
+        });
+
+        // Update both total sums
+        $('#totalSum').text(totalSum.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }));
+        
+        $('#totalSumCompleted').text(completedSum.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }));
+    }
+
+    function calculateSelectedTotal() {
+        let selectedTotal = 0;
+        
+        $('.order-checkbox:checked').each(function() {
+            const row = $(this).closest('tr');
+            const amount = parseFloat(row.find('td:nth-child(7)').text()
+                                      .replace('₱', '')
+                                      .replace(/,/g, ''));
+            
+            if (!isNaN(amount)) {
+                selectedTotal += amount;
+            }
+        });
+
+        $('#SelectedItemTotal').text(selectedTotal.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }));
     }
 
     // Refresh data every 30 seconds

@@ -21,9 +21,11 @@
             <!-- Include Header here -->
             <?php include 'adminHEADER.php'; ?>
             
-            <div class="container-fluid mt-4">
-                <h2>All Orders</h2>
-                <button id="exportPdfBtn" class="btn btn-danger">Export PDF</button>
+            <div class="container-fluid mt-0">
+                <div class="upper-contents">
+                    <h2>All Orders</h2>
+                    <button id="exportPdfBtn" class="btn btn-danger">Export PDF</button>
+                </div>
                 <div class="table-responsive">
                     <table class="table table-striped table-hover">
                         <thead class="table-dark">
@@ -45,6 +47,44 @@
                         </tbody>
                     </table>
                 </div>
+                
+                <!-- Total Sum Section -->
+                <div class="d-flex justify-content-end mt-3" style="gap: 8px;">
+                    <div class="card bg-light border-primary" style="min-width: 200px;">
+                        <div class="card-body py-2">
+                            <div class="d-flex align-items-center" style="gap: 10px;">
+                                <i class="fas fa-shopping-cart text-primary me-2 fa-lg"></i>
+                                <div>
+                                    <h6 class="card-title mb-0">Selected Item Total</h6>
+                                    <p class="card-text h5 mb-0">₱<span id="SelectedItemTotal">0.00</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card bg-light border-success" style="min-width: 200px;">
+                        <div class="card-body py-2">
+                            <div class="d-flex align-items-center" style="gap: 10px;">
+                                <i class="fas fa-check-circle text-success me-2 fa-lg"></i>
+                                <div>
+                                    <h6 class="card-title mb-0">Amount Completed</h6>
+                                    <p class="card-text h5 mb-0">₱<span id="totalSumCompleted">0.00</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card bg-light border-danger" style="min-width: 200px;">
+                        <div class="card-body py-2">
+                            <div class="d-flex align-items-center" style="gap: 10px;">
+                                <i class="fas fa-coins text-danger me-2 fa-lg"></i>
+                                <div>
+                                    <h6 class="card-title mb-0">Total Amount</h6>
+                                    <p class="card-text h5 mb-0">₱<span id="totalSum">0.00</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
