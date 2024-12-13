@@ -78,18 +78,25 @@ $(document).ready(function() {
         });
     }
 
-    function fetchUsers() {
+    function loadUsersList() {
         $.ajax({
-            url: '../../backend/adminFUNCTIONS/adminFetchUsers.php',
+            url: '../../backend/adminFUNCTIONS/adminFetchMessages.php',
             method: 'GET',
-            success: function(users) {
+            data: { get_users: true },
+            success: function(response) {
                 const userList = $('#user-list');
                 userList.empty();
                 
-                users.forEach(user => {
+                response.users.forEach(user => {
+                    const unreadIndicator = user.unread_count > 0 ? 
+                        `<span class="badge bg-danger position-absolute top-0 end-0 translate-middle">
+                            <span class="visually-hidden">New messages</span>
+                        </span>` : '';
+                    
                     userList.append(`
-                        <li class="user-item list-group-item" data-id="${user.user_id}">
+                        <li class="list-group-item user-item position-relative" data-id="${user.user_id}">
                             ${user.first_name} ${user.last_name}
+                            ${unreadIndicator}
                         </li>
                     `);
                 });
@@ -129,7 +136,14 @@ $(document).ready(function() {
     });
 
     // Update user click handler
-    $('#user-list').on('click', '.user-item', function() {
+    $(document).on('click', '.user-item', function() {
+        const userId = $(this).data('id');
+        // Mark messages as read
+        $.get(`../../backend/adminFUNCTIONS/adminFetchMessages.php?mark_read=true&sender_id=${userId}`);
+        loadUsersList(); // Refresh list to remove indicator
+        const sender_id = $(this).data('id');
+        currentReceiverId = sender_id;
+        
         const receiver_id = $(this).data('id');
         currentReceiverId = receiver_id;
         const userName = $(this).text().trim();
@@ -141,10 +155,11 @@ $(document).ready(function() {
 
     // Auto-refresh messages every 3 seconds if a user is selected
     setInterval(function() {
+        loadUsersList();
         if (currentReceiverId) {
             fetchMessages(currentReceiverId);
         }
     }, 3000);
 
-    fetchUsers();
+    loadUsersList();
 });

@@ -11,8 +11,111 @@ if (!isset($_SESSION['user_id'])) {
 
 $admin_id = $_SESSION['user_id'];
 
+// Get users with unread message count
+if (isset($_GET['users'])) {
+    $sql = "SELECT 
+            u.user_id, 
+            u.username,
+            u.first_name,
+            u.last_name,
+            (SELECT COUNT(*) FROM messages 
+             WHERE sender_id = u.user_id 
+             AND receiver_id = 2 
+             AND is_read = 0) as unread_count,
+            MAX(m.timestamp) as last_message
+            FROM users u
+            LEFT JOIN messages m ON u.user_id = m.sender_id 
+            WHERE u.is_admin = 0
+            GROUP BY u.user_id
+            ORDER BY unread_count DESC, last_message DESC";
+
+    $result = $conn->query($sql);
+    $users = [];
+    while ($row = $result->fetch_assoc()) {
+        $users[] = $row;
+    }
+    echo json_encode($users);
+    exit;
+}
+
+if (isset($_GET['get_users'])) {
+    $sql = "SELECT 
+            u.user_id, 
+            u.first_name, 
+            u.last_name,
+            (SELECT COUNT(*) FROM messages 
+             WHERE sender_id = u.user_id 
+             AND receiver_id = ? 
+             AND is_read = 0) as unread_count
+            FROM users u
+            WHERE u.is_admin = 0
+            ORDER BY unread_count DESC, u.user_id ASC";
+            
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $admin_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $users = [];
+    
+    while ($row = $result->fetch_assoc()) {
+        $users[] = [
+            'user_id' => $row['user_id'],
+            'first_name' => $row['first_name'],
+            'last_name' => $row['last_name'],
+            'unread_count' => (int)$row['unread_count']
+        ];
+    }
+    echo json_encode(['users' => $users]);
+    exit;
+}
+
+// Mark messages as read when admin opens chat
+if (isset($_GET['mark_read'])) {
+    $sender_id = $_GET['sender_id'];
+    $sql = "UPDATE messages SET is_read = 1 
+            WHERE sender_id = ? AND receiver_id = ? AND is_read = 0";
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "ii", $sender_id, $admin_id);
+    mysqli_stmt_execute($stmt);
+}
+
+// Update messages to read when admin opens chat
+if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
+    $data = json_decode(file_get_contents('php://input'), true);
+    $sender_id = $data['sender_id'];
+    
+    $sql = "UPDATE messages SET is_read = 1 
+            WHERE sender_id = ? AND receiver_id = ?";
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "ii", $sender_id, $admin_id);
+    
+    if (mysqli_stmt_execute($stmt)) {
+        echo json_encode(['status' => 'success']);
+    } else {
+        echo json_encode(['status' => 'error']);
+    }
+    exit;
+}
+
 // Fetch messages with user info
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    if (isset($_GET['get_unread'])) {
+        $sql = "SELECT u.user_id, u.first_name, u.last_name, 
+                COUNT(CASE WHEN m.is_read = 0 AND m.receiver_id = ? THEN 1 END) as unread_count
+                FROM users u
+                LEFT JOIN messages m ON u.user_id = m.sender_id
+                WHERE u.is_admin = 0
+                GROUP BY u.user_id";
+        
+        $stmt = mysqli_prepare($conn, $sql);
+        mysqli_stmt_bind_param($stmt, "i", $admin_id);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $users = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        echo json_encode($users);
+        exit;
+    }
+
     $receiver_id = mysqli_real_escape_string($conn, $_GET['receiver_id']);
     $sql = "SELECT m.*, 
             CONCAT(u1.first_name, ' ', u1.last_name) as sender_name,
