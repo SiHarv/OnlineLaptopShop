@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $result = $stmt->get_result();
 
         if ($result->num_rows > 0) {
-            throw new Exception('A return request already exists for this order, please wait for a response or check your order status');
+            throw new Exception('This Item has an history of return!');
         }
 
         // File upload handling

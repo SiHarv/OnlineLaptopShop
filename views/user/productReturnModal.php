@@ -120,7 +120,7 @@ $(document).ready(function() {
                                     Swal.fire({
                                         icon: 'success',
                                         title: 'Success!',
-                                        text: 'Return request submitted successfully',
+                                        text: 'Return request submitted successfully, please check order status',
                                         confirmButtonColor: '#3085d6'
                                     }).then(() => {
                                         $('#returnModal').modal('hide');

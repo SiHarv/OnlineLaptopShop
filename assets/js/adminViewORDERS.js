@@ -42,6 +42,7 @@ $(document).ready(function() {
                                     <option value="Complete" ${order.status === 'Complete' ? 'selected' : ''}>Complete</option>
                                     <option value="For Returned" ${order.status === 'For Returned' ? 'selected' : ''}>For Returned</option>
                                     <option value="Canceled" ${order.status === 'Canceled' ? 'selected' : ''}>Canceled</option>
+                                    <option value="Return Complete" ${order.status === 'Return Complete' ? 'selected' : ''}>Return Complete</option>
                                 </select>
                             </td>
                             <td>${order.carrier || '-'}</td>
