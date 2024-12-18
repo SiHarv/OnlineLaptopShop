@@ -44,10 +44,17 @@ $conn->close();
     <?php include 'userHEADER.php'; ?>
     <div class="wrapper">
         <?php include 'sidebar.php'; ?>
+        <!-- Return Modal -->
+        <?php include 'productReturnModal.php'; ?>
         <div class="main-content">
             <div class="container-fluid mt-4">
                 <h2 class="text-center mb-4">Order History</h2>
-                <div class="mb-3 d-flex justify-content-center">
+                <div class="mb-1 d-flex justify-content-center">
+                    <div class="d-flex justify-content-start w-100">
+                        <button type="button" class="btn btn-primary mb-1" data-toggle="modal" data-target="#returnModal">
+                            Return Product
+                        </button>
+                    </div>
                     <input type="text" id="searchInput" class="form-control w-50" placeholder="Search orders...">
                 </div>
                 <div class="table-responsive">
@@ -98,6 +105,7 @@ $conn->close();
             });
         });
     </script>
-  <!--   <script src="../../assets/js/sidebar.js"></script> -->
+
 </body>
 </html>
+<script src="../../assets/js/productReturn.js"></script>

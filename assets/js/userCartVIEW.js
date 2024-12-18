@@ -1,5 +1,29 @@
 document.addEventListener('DOMContentLoaded', function() {
     fetchCartItems();
+
+    const paymentOption = document.getElementById('paymentOption');
+    const carrierGroup = document.getElementById('carrier-group');
+    const carrier = document.getElementById('carrier');
+    const cartTotal = document.getElementById('cart-total');
+    const totalAmount = document.getElementById('totalAmount');
+
+    paymentOption.addEventListener('change', function() {
+        if (this.value === 'Meet Up') {
+            carrierGroup.style.display = 'none';
+            carrier.value = '--';
+        } else {
+            carrierGroup.style.display = 'block';
+        }
+    });
+
+    // Trigger change event on page load to set initial state
+    paymentOption.dispatchEvent(new Event('change'));
+
+    // Update total amount in payment modal when cart total changes
+    document.getElementById('checkout-btn').addEventListener('click', function() {
+        totalAmount.textContent = cartTotal.textContent;
+        $('#paymentModal').modal('show');
+    });
 });
 
 function fetchCartItems() {

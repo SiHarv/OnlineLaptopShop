@@ -2,6 +2,30 @@
 <link rel="stylesheet" href="../../assets/css/userSIDEBAR.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
+<style>
+.nav-item {
+    position: relative;
+}
+
+.nav-link {
+    position: relative;
+    padding: 10px 15px;
+}
+
+.user-message-badge {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: none;
+    background-color: #dc3545;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+</style>
+
 <!-- Sidebar -->
 <nav class="sidebar">
     <h3 class="mb-4">My Dashboard</h3>
@@ -21,7 +45,17 @@
                 <i class="fas fa-history"></i> Order History
             </a>
         <li class="nav-item">
-            <a class="nav-link" href="userPROFILE.php">
+            <a class="nav-link" href="userMESSAGES.php">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <i class="fas fa-envelope"></i> Message Admin
+                    </div>
+                    <div class="user-message-badge"></div>
+                </div>
+            </a>
+        </li>
+        <li class="nav-item">
+           <a class="nav-link" href="userPROFILE.php">
             <i class="fas fa-user"></i> Profile
             </a>
         </li>
@@ -57,11 +91,4 @@
 <script src="../../assets/js/jquery.js"></script>
 <script src="../../assets/js/bootstrap.js"></script>
 <script src="https://kit.fontawesome.com/your-code.js"></script>
-<script src="../../assets/js/sidebar.js"></script>
-<script>
-    $(document).ready(function() {
-        $('#confirmLogout').click(function() {
-            window.location.href = '../../backend/logout.php';
-        });
-    });
-</script>
+<script src="../../assets/js/userSidebar.js"></script>

@@ -36,7 +36,7 @@
 <script src="../../assets/js/jquery.js"></script>
 <script src="../../assets/js/bootstrap.js"></script>
 <script src="https://kit.fontawesome.com/your-code.js"></script>
-<script src="../../assets/js/sidebar.js"></script>
+<script src="../../assets/js/userSidebar.js"></script>
 <script>
     $(document).ready(function() {
         $('#confirmLogout').click(function() {

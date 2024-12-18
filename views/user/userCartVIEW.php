@@ -61,7 +61,6 @@ if (!isset($_SESSION['user_id'])) {
                     <div class="form-group mt-3">
                         <label for="paymentOption">Payment Option</label>
                         <select class="form-control" id="paymentOption">
-                        <option value="--">--</option>
                             <option value="Meet Up">Meet Up</option>
                             <option value="Cash on Delivery">Cash on Delivery</option>
                             <option value="Cash on Pickup">Cash on Pickup</option>
@@ -70,6 +69,7 @@ if (!isset($_SESSION['user_id'])) {
                     <div class="form-group mt-3" id="carrier-group" style="display: none;">
                         <label for="carrier">Carrier</label>
                         <select class="form-control" id="carrier">
+                            <option value="--">--</option>
                             <option value="LBC">LBC</option>
                             <option value="Lalamove">Lalamove</option>
                             <option value="J&T">J&T</option>
@@ -78,9 +78,8 @@ if (!isset($_SESSION['user_id'])) {
                             <option value="Private Driver">Private Driver</option>
                         </select>
                     </div>
-                    <div class="form-group mt-3">
-                        <label for="totalAmount">Total Amount: ₱<span id="modalTotalAmount">0.00</span></label>
-                        <input type="hidden" id="totalAmountInput" name="totalAmount" value="0">
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <label for="totalAmount">Total Amount: ₱<span id="totalAmount">0.00</span></label>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -95,6 +94,5 @@ if (!isset($_SESSION['user_id'])) {
     <script src="../../assets/js/bootstrap.js"></script>
     <script src="https://kit.fontawesome.com/your-code.js"></script>
     <script src="../../assets/js/userCartVIEW.js"></script>
-<!--     <script src="../../assets/js/sidebar.js"></script> -->
 </body>
 </html>
