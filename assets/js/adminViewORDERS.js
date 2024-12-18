@@ -17,6 +17,10 @@ $(document).ready(function() {
         calculateSelectedTotal();
     });
 
+    // Add these event listeners after document.ready
+    $('#searchInput').on('keyup', filterOrders);
+    $('#statusFilter').on('change', filterOrders);
+
     function fetchOrders() {
         $.ajax({
             url: '../../backend/adminFUNCTIONS/fetchALLORDERS.php',
@@ -210,6 +214,29 @@ $(document).ready(function() {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
         }));
+    }
+
+    function filterOrders() {
+        const searchTerm = $('#searchInput').val().toLowerCase();
+        const statusFilter = $('#statusFilter').val();
+
+        $('#ordersTableBody tr').each(function() {
+            const $row = $(this);
+            const rowData = $row.text().toLowerCase();
+            const status = $row.find('.status-select').val();
+            
+            const matchesSearch = searchTerm === '' || rowData.includes(searchTerm);
+            const matchesStatus = statusFilter === '' || status === statusFilter;
+
+            if (matchesSearch && matchesStatus) {
+                $row.show();
+            } else {
+                $row.hide();
+            }
+        });
+        
+        calculateTotalSums();
+        calculateSelectedTotal();
     }
 
     // Refresh data every 30 seconds

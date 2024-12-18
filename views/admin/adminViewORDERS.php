@@ -22,9 +22,23 @@
             <?php include 'adminHEADER.php'; ?>
             
             <div class="container-fluid mt-0">
-                <div class="upper-contents">
-                    <h2>All Orders</h2>
-                    <button id="exportPdfBtn" class="btn btn-danger">Export PDF</button>
+                <h2>All Orders</h2>
+                <div class="controls-wrapper">
+                    <div class="export-container">
+                        <button id="exportPdfBtn" class="btn btn-danger">Export PDF</button>
+                    </div>
+                    <div class="search-filter-container">
+                        <select id="statusFilter" class="form-select">
+                            <option value="">All Status</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Out for Delivery">Out for Delivery</option>
+                            <option value="Complete">Complete</option>
+                            <option value="For Returned">For Returned</option>
+                            <option value="Canceled">Canceled</option>
+                            <option value="Return Complete">Return Complete</option>
+                        </select>
+                        <input type="text" id="searchInput" class="form-control" placeholder="Search orders...">
+                    </div>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped table-hover">
@@ -92,4 +106,4 @@
 </html>
 <script src="../../assets/js/jquery.js"></script>
 <script src="../../assets/js/bootstrap.js"></script>
-<script src="../../assets/js/adminViewORDERS.js"></script>
+<script src="../../assets/js/adminViewORDERS.js"></script></div>

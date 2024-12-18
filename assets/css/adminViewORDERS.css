@@ -2,7 +2,7 @@
 .table-responsive {
     margin-top: 20px;
     margin-bottom: 20px; /* Add space below table */
-    max-height: calc(100vh - 350px); /* Reduce table height */
+    max-height: calc(100vh - 280px); /* Reduce table height */
     overflow-y: auto;
 }
 
@@ -105,4 +105,30 @@
     outline: none;
     border-color: #80bdff;
     box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+.search-filter-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+#searchInput {
+    width: 250px;
+}
+
+#statusFilter {
+    width: 200px;
+}
+
+.upper-contents {
+    display: flex;
+    flex-direction: column;
+}
+
+.controls-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
